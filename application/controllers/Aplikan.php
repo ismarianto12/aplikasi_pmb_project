@@ -24,7 +24,7 @@ public function json() {
   header('Content-Type: application/json');
   echo $this->Aplikan_model->json();
 }
- 
+
 public function tambah() 
 {
   $data = array(
@@ -60,8 +60,8 @@ public function tambah()
  );
   $this->template->load('template','aplikan/aplikan_form', $data);
 }
- 
- 
+
+
 function get_detail_confirm()
 {
   if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -71,7 +71,7 @@ function get_detail_confirm()
    if($data->num_rows() > 0):
      $sql_rows = $data->row_array();
      $encode = array('no_pendaftaran'=>$sql_rows['no_pendaftaran'],
-      'jumlah'=>$sql_rows['jumlah'],
+      'jumlah'=>'Rp.'.number_format($sql_rows['jumlah'],0,0,'.'),
       'file_pembayaran'=>$sql_rows['file_pembayaran'],
       'tanggal'=>$sql_rows['tanggal'],
     );
@@ -91,25 +91,80 @@ function get_detail_confirm()
 function confirm(){
   if($_SERVER["REQUEST_METHOD"] == "POST"):
    $no_pendaftarand = $this->input->post('no_pendaftaran');
-   if($this->input->post('konfirmasi') == 'Y'):
+   if($this->input->post('konfirmasi') == 'Y'){ 
      /*salin data dari table aplikan ke table pmb*/
      $data_aplikan = $this->db->get_where('aplikan',array('no_pendaftaran'=>$no_pendaftaran));
      if($data_aplikan->num_rows() > 0){
       $row = $data_aplikan->row();
-
       /*data table update*/
       $data_update = array ('pembayaran'=>'Y');
       $this->db->update('aplikan',$data_update,array('no_pendaftaran'=>$no_pendaftaran)); 
-       
-    }else{
-      /*do nothing */
-    }   
-  elseif($this->input->post('konfirmasi') == 'N'):
+      $cek_pmb = $this->db->where('pmb',array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
+      if($cek_pmb->num_rows() > 0):
+        $data_pmb = array(
+         'id_periode'=>$row->id_periode,
+         'no_pendaftaran'=>$row->no_pendaftaran,
+         'nama'=>$row->nama,
+         'kelamin'=>$row->kelamin,
+         'tempatlahir'=>$row->tempatlahir,
+         'alamat'=>$row->alamat,
+         'kota'=>$row->kota,
+         'propinsi'=>$row->propinsi,
+         'kodePos'=>$row->kodePos,
+         'rt'=>$row->rt,
+         'rW'=>$row->rW,
+         'telepon'=>$row->telepon,
+         'email'=>$row->email,
+         'no_hp'=>$row->no_hp,
+         'jenisSekolah'=>$row->jenisSekolah,
+         'namaSekolah'=>$row->namaSekolah,
+         'jurusanSekolah'=>$row->jurusanSekolah,
+         'tahunLulus'=>$row->tahunLulus,
+         'nilaiSekolah'=>$row->nilaiSekolah,
+         'tgl_daftar'=>$row->tgl_daftar,
+         'prodi_1'=>$row->prodi_1,
+         'prodi_2'=>$row->prodi_2,
+         'prodi_3'=>$row->prodi_3,
+         'pembayaran'=>$row->pembayaran, 
+       ); 
+        $this->db->update('pmb',$data_pmb,array('no_pendaftaran'=>$sql->no_pendaftaran));
+      else:
+        $data_pmb = array(
+         'id_periode'=>$row->id_periode,
+         'no_pendaftaran'=>$row->no_pendaftaran,
+         'nama'=>$row->nama,
+         'kelamin'=>$row->kelamin,
+         'tempatlahir'=>$row->tempatlahir,
+         'alamat'=>$row->alamat,
+         'kota'=>$row->kota,
+         'propinsi'=>$row->propinsi,
+         'kodePos'=>$row->kodePos,
+         'rt'=>$row->rt,
+         'rW'=>$row->rW,
+         'telepon'=>$row->telepon,
+         'email'=>$row->email,
+         'no_hp'=>$row->no_hp,
+         'jenisSekolah'=>$row->jenisSekolah,
+         'namaSekolah'=>$row->namaSekolah,
+         'jurusanSekolah'=>$row->jurusanSekolah,
+         'tahunLulus'=>$row->tahunLulus,
+         'nilaiSekolah'=>$row->nilaiSekolah,
+         'tgl_daftar'=>$row->tgl_daftar,
+         'prodi_1'=>$row->prodi_1,
+         'prodi_2'=>$row->prodi_2,
+         'prodi_3'=>$row->prodi_3,
+         'pembayaran'=>$row->pembayaran, 
+       ); 
+        $this->db->insert('pmb',$data_pmb); 
+      endif;   
+       }
+      
+    }elseif($this->input->post('konfirmasi') == 'N'){ 
 
-  endif;
-else:
-  echo "{data:'do nothing'}";
-endif; 
+    } 
+  else
+    echo "{data:'do nothing'}";
+  endif; 
 } 
 public function hapus($id) 
 {
@@ -123,6 +178,6 @@ public function hapus($id)
    redirect(site_url('aplikan'));
  }
 }
- 
+
 }
 
