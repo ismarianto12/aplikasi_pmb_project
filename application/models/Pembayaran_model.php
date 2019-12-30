@@ -48,7 +48,7 @@ class Pembayaran_model extends CI_Model
          $this->datatables->from('aplikan a');
          $this->datatables->join('pembayaran b','a.no_pendaftaran = b.no_pendaftaran','left');
          if($this->input->post('periode')){
-          $this->datatables->where('a.id_periode',$this->input->post('periode'));
+           $this->datatables->where('a.id_periode',$this->input->post('periode'));
          }else{ 
          }
          $this->datatables->where('a.pembayaran','Y');
