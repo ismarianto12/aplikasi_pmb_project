@@ -4,8 +4,7 @@
     <div class='white-box'>
       <h3 class='box-title m-b-0'><?= $judul ?></h3>
       <p class='text-muted m-b-30'>List Data Aplikan</p>
-      <div class='table-responsive'>  
-
+      <div class='table-responsive'>   
        <div class="form-group">
         <label for="int" class='control-label col-md-3'><b>Periode / Tahun Akademik</b></label>
         <div class='col-md-9'>
@@ -88,28 +87,28 @@
           } 
         }
       },{"data": "tempatlahir"},{"data": "alamat"},{"data": "propinsi"},{"data": "nama_prodi"},{"data": "nama_prodi"},{"data": "nama_prodi"},{"data": "nama_prodi"},{"data": "pembayaran","render": function (data, type, row) { 
-          if (row.pembayaran ==  'Y'){
-            return "Bayar";  
-          }else{
-            return "Belum Bayar";  
-          } 
-        }
-      },
-      {
-        "data" : "action",
-        "orderable": false,
-        "className" : "text-center"
+        if (row.pembayaran ==  'Y'){
+          return "Bayar";  
+        }else{
+          return "Belum Bayar";  
+        } 
       }
-      ],
-      order: [[0, 'desc']],
-      rowCallback: function(row, data, iDisplayIndex) {
-        var info = this.fnPagingInfo();
-        var page = info.iPage;
-        var length = info.iLength;
-        var index = page * length + (iDisplayIndex + 1);
-        $('td:eq(0)', row).html(index);
-      }
-    });
+    },
+    {
+      "data" : "action",
+      "orderable": false,
+      "className" : "text-center"
+    }
+    ],
+    order: [[0, 'desc']],
+    rowCallback: function(row, data, iDisplayIndex) {
+      var info = this.fnPagingInfo();
+      var page = info.iPage;
+      var length = info.iLength;
+      var index = page * length + (iDisplayIndex + 1);
+      $('td:eq(0)', row).html(index);
+    }
+  });
         $('#periode').change(function(){
          datatable.draw();
          datatable.ajax.reload();
@@ -145,10 +144,10 @@
          },success:function(data) 
          {    
 
-          $('#hide_no_pendaftaran').html('<input type="hidden" name="no_pendaftaran" value="'+data.no_pend+'">');
+          $('#hide_no_pendaftaran').html('<input type="hidden" id="no_pendaftaran" name="no_pendaftaran" value="'+data.no_pendaftaran+'">');
           $('#_pendaftaran').html(data.no_pendaftaran);
           $('#jumlah').html(data.jumlah);
-          $('#file_pembayaran').html('<a href="<?= base_url('assets/file_pembayaran') ?>'+data.file_pembayaran+'" class="btn btn-info" target="_blank">Detail File</a>');
+          $('#file_pembayaran').html('<a href="<?= base_url('assets/file_pembayaran') ?>/'+data.file_pembayaran+'" class="btn btn-info" target="_blank">Detail File</a>');
           $('#tanggal').html(data.tanggal);
           $('#id_user').html(data.id_user);     
           $('#tampil_pembayaran').modal('show'); 
@@ -162,18 +161,20 @@
       /*function to confirm data*/
       $(function(){
         var no_pendaftaran = $('#no_pendaftaran').val();   
-        $('#konfirmasi').click(function(){
+        $('#konfirmasi').click(function(e){
+          e.preventDefault();
           $.ajax({
-           url :'<?= base_url('aplikan/set_konfirmasi') ?>',
+           url :'<?= base_url('aplikan/confirm') ?>',
            type:'post',
            data:'no_pendaftaran='+no_pendaftaran,
-           chace:false,
            dataType:'json',
+           chace:false, 
            beforeSend:function(){
              swal('info','sedang memuat data harap bersabar ..','success');
            },success:function(data){  
             swal('info','sedang memuat data harap bersabar ..','success');
           },error:function(data){ 
+            swal('info','sedang memuat data harap bersabar ..','error');
           } 
         }); 
         });
@@ -201,8 +202,8 @@
            <br /><br /><br /><br />  
            <div class="form-group">
             <label for="varchar" class='control-label col-md-3'><b>No Pendaftaran</b></label>
-            <div class='col-md-9'>
-              <div id="no_pendaftaran"></div>
+            <div class='col-md-9'> 
+              <div id="hide_no_pendaftaran"></div>
               <div id="_pendaftaran"></div>
             </div>
           </div>

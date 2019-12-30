@@ -8,6 +8,7 @@ class Aplikan extends CI_Controller
   parent::__construct();
   login_access();
   hak_akses();
+  $this->load->model('Depan_model');
   $this->load->model('Aplikan_model');
   $this->load->library('form_validation');   
   $this->load->library('datatables');
@@ -89,8 +90,8 @@ function get_detail_confirm()
 }
 
 function confirm(){
-  if($_SERVER["REQUEST_METHOD"] == "POST"):
-   $no_pendaftarand = $this->input->post('no_pendaftaran');
+  //if($_SERVER["REQUEST_METHOD"] == "POST"):
+   $no_pendaftaran = $this->input->post('no_pendaftaran');
    if($this->input->post('konfirmasi') == 'Y'){ 
      /*salin data dari table aplikan ke table pmb*/
      $data_aplikan = $this->db->get_where('aplikan',array('no_pendaftaran'=>$no_pendaftaran));
@@ -157,15 +158,26 @@ function confirm(){
        ); 
         $this->db->insert('pmb',$data_pmb); 
       endif;   
-       }
-      
-    }elseif($this->input->post('konfirmasi') == 'N'){ 
-
     } 
-  else
-    echo "{data:'do nothing'}";
-  endif; 
+  }elseif($this->input->post('konfirmasi') == 'N'){ 
+
+  } 
+   
 } 
+
+function detail($id)
+{
+  if($id !=''){
+    $x = array('sql'=>$this->Depan_model->detail_data_aplikan($id),
+      'judul'=>'Detail pendaftaran pmb gelombang'.nama_gelombang('tahun_akademik')
+    );
+    $this->template->load('template','aplikan/detail_aplikan',$x);
+  }else{
+   echo show_404();
+   exit();
+ } 
+}
+
 public function hapus($id) 
 {
   $row = $this->Aplikan_model->get_by_id($id);

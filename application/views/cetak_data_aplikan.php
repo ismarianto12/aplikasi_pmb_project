@@ -7,8 +7,7 @@
 	<head>
 		<title>Detail Data Pendaftaran Peserta</title>
 	</head>
-	<link href="<?= base_url() ?>assets/template/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	 
+	<link href="<?= base_url() ?>assets/template/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> 
 	 <style type="text/css">
 	 	@media print {
 	 		.make-grid(print-A4);
