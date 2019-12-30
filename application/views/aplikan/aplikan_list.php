@@ -75,6 +75,14 @@
             data.periode = periode; 
           }
         },
+        dom: 'Bfrtip',
+        buttons: [
+        { extend: 'copyHtml5', footer: true },
+        { extend: 'excelHtml5', footer: true },
+        { extend: 'csvHtml5', footer: true },
+        { extend: 'pdfHtml5', footer: true },
+        { extend: 'print', footer: true }
+        ],         
         columns: [
         {
           "data": "id_aplikan",
@@ -158,28 +166,7 @@
        }  
      }); 
       }  
-      /*function to confirm data*/
-      $(function(){
-        var no_pendaftaran = $('#no_pendaftaran').val();   
-        $('#konfirmasi').click(function(e){
-          e.preventDefault();
-          $.ajax({
-           url :'<?= base_url('aplikan/confirm') ?>',
-           type:'post',
-           data:'no_pendaftaran='+no_pendaftaran,
-           dataType:'json',
-           chace:false, 
-           beforeSend:function(){
-             swal('info','sedang memuat data harap bersabar ..','success');
-           },success:function(data){  
-            swal('info','sedang memuat data harap bersabar ..','success');
-          },error:function(data){ 
-            swal('info','sedang memuat data harap bersabar ..','error');
-          } 
-        }); 
-        });
-      });
-
+  
     </script>
   </div>
 </div>
@@ -197,7 +184,7 @@
       </div>
       <div class="modal-body"> 
         <div class='panel-body'>
-         <form method="POST" class='form-horizontal form-bordered'>
+         <form id="konfirmasi" method="POST" class='form-horizontal form-bordered'>
           <div class='form-body'>  
            <br /><br /><br /><br />  
            <div class="form-group">
@@ -234,13 +221,12 @@
             </select>
           </div>
         </div> 
-
         <div class='form-actions'>
           <div class='row'>
             <div class='col-md-12'>
               <div class='row'>
                 <div class='col-md-offset-3 col-md-9'>
-                 <button id="konfirmasi" class="btn btn-info"><i class='fa fa-check'></i>Konfirmasi</button> 
+                 <button type="submit" id="konfirmasi" class="btn btn-info"><i class='fa fa-check'></i>Konfirmasi</button> 
                  <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
                </div>
              </div>
@@ -255,5 +241,28 @@
 </div>
 </div> 
 </div> 
-
 <!-- end data model -->
+
+<script type="text/javascript">
+  /*function to confirm data*/
+  $(function(){
+    var no_pendaftaran = $('#no_pendaftaran').val();   
+    $('#konfirmasi').submit(function(e){
+      e.preventDefault();
+      $.ajax({
+       url :'<?= base_url('aplikan/confirm') ?>',
+       type:'post',
+       data:'no_pendaftaran='+no_pendaftaran,
+       dataType:'json',
+       chace:false, 
+       beforeSend:function(){
+         swal('info','sedang memuat data harap bersabar ..','success');
+       },success:function(data){  
+        swal('info','sedang memuat data harap bersabar ..','success');
+      },error:function(data){ 
+        swal('info','sedang memuat data harap bersabar ..','error');
+      } 
+    }); 
+    });
+  });
+</script>

@@ -74,7 +74,7 @@ function get_detail_confirm()
      $encode = array('no_pendaftaran'=>$sql_rows['no_pendaftaran'],
       'jumlah'=>'Rp.'.number_format($sql_rows['jumlah'],0,0,'.'),
       'file_pembayaran'=>$sql_rows['file_pembayaran'],
-      'tanggal'=>$sql_rows['tanggal'],
+      'tanggal'=>tgl_indonesia($sql_rows['tanggal']),
     );
      echo json_encode($encode); 
    else:
