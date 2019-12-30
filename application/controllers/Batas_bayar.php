@@ -22,11 +22,11 @@ class Batas_bayar extends CI_Controller
 
     public function index()
     {
-     $x['judul'] = 'Data : Batas bayar';
-     $this->template->load('template','batas_bayar/batas_bayar_list',$x);
- } 
- 
- public function json() {
+       $x['judul'] = 'Data : Batas bayar';
+       $this->template->load('template','batas_bayar/batas_bayar_list',$x);
+   } 
+
+   public function json() {
     header('Content-Type: application/json');
     echo $this->Batas_bayar_model->json();
 }
@@ -41,7 +41,7 @@ public function detail($id)
           'program' => $row->program,
           'tahun_mulai' => $row->tahun_mulai,
           'batas_' => $row->batas_,
-          
+
           'judul'=>'Detail :  BATAS_BAYAR',
       );
         $this->template->load('template','batas_bayar/batas_bayar_read', $data);
@@ -56,6 +56,7 @@ public function tambah()
     $data = array(
         'judul'=>'Tambah Batas bayar',
         'button' => 'Create',
+        'tahun_akademik'=>$this->db->get('periode'),
         'action' => site_url('batas_bayar/tambah_data'),
         'id_batas' => set_value('id_batas'),
         'id_periode' => set_value('id_periode'),
