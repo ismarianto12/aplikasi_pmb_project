@@ -20,13 +20,16 @@
                         <div class="form-group">
                             <label for="enum" class='control-label col-md-3'><b>Kelamin<?php echo form_error('kelamin') ?></b></label>
                             <div class='col-md-9'>
-                                <input type="text" class="form-control" name="kelamin" id="kelamin" placeholder="Kelamin" value="<?php echo $kelamin; ?>" />
+                               <select class="form-control" name="kelamin">
+                                   <option value="L">Laki laki</option>
+                                   <option value="P">Perempuan</option> 
+                               </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="varchar" class='control-label col-md-3'><b>Tempatlahir<?php echo form_error('tempatlahir') ?></b></label>
+                            <label for="varchar" class='control-label col-md-3'><b>Tempat lahir<?php echo form_error('tempatlahir') ?></b></label>
                             <div class='col-md-9'>
                                 <input type="text" class="form-control" name="tempatlahir" id="tempatlahir" placeholder="Tempatlahir" value="<?php echo $tempatlahir; ?>" />
                             </div>
@@ -111,7 +114,11 @@
                         <div class="form-group">
                             <label for="enum" class='control-label col-md-3'><b>Jenis Sekolah<?php echo form_error('jenisSekolah') ?></b></label>
                             <div class='col-md-9'>
-                                <input type="text" class="form-control" name="jenisSekolah" id="jenisSekolah" placeholder="JenisSekolah" value="<?php echo $jenisSekolah; ?>" />
+                                <select class="form-control" name="jenisSekolah">
+                                    <option value="Swasta">Swasta</option>
+                                    <option value="Negri">Negri</option>
+                                    
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -153,7 +160,7 @@
                     <hr />
                     <!-- end pilihan prodi -->
                     <div class="form-group">
-                        <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi<?php echo form_error('prodi_1') ?></b></label>
+                        <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi 1<?php echo form_error('prodi_1') ?></b></label>
                         <div class='col-md-9'> 
                             <select class="form-control" name="prodi_1">
                                 <?php foreach($data_prodi->result_array() as $data): ?>

@@ -1,4 +1,3 @@
- 
 <div class='row'>
     <div class='col-sm-12'>
       <?= $this->session->userdata('message') ?>
@@ -7,19 +6,19 @@
         <p class='text-muted m-b-30'>List Data Aplikan</p>
         <div class='table-responsive'>  
 
-         <div class="form-group">
+           <div class="form-group">
             <label for="int" class='control-label col-md-3'><b>Periode / Tahun Akademik</b></label>
             <div class='col-md-9'>
                 <select class="form-control" id="periode"> 
                     <?php foreach($tahun_akademik->result_array() as $data): ?>    
-                     <option value="<?= $data['id_periode'] ?>"><?= $data['tahun_akademik'] ?></option>
-                 <?php endforeach ?>
-             </select>
-         </div>
-     </div>
-     <hr />
+                       <option value="<?= $data['id_periode'] ?>"><?= $data['tahun_akademik'] ?></option>
+                   <?php endforeach ?>
+               </select>
+           </div>
+       </div>
+       <hr />
 
-     <table class="table" id="datatables">
+       <table class="table" id="datatables">
         <thead>
             <tr>
                 <th width="80px">No</th>
@@ -56,7 +55,7 @@
                 };
             };
 
-            var t = $("#datatables").dataTable({
+            var datatable = $("#datatables").DataTable({
                 initComplete: function() {
                     var api = this.api();
                     $('#datatables input')
@@ -98,10 +97,10 @@
             }
         });
             $('#periode').change(function(){
-             datatable.draw();
-             datatable.ajax.reload();
+               datatable.draw();
+               datatable.ajax.reload();
 
-         });
+           });
         });
 
         function hapus(n){
@@ -115,60 +114,58 @@
                 closeOnConfirm: false
             },
             function(){
-               swal('Hapus Data', 'Data Berhasil Di Hapus', 'success'); 
-               window.location.href='<?= base_url('aplikan/hapus/') ?>'+n;
-           });
+             swal('Hapus Data', 'Data Berhasil Di Hapus', 'success'); 
+             window.location.href='<?= base_url('aplikan/hapus/') ?>'+n;
+         });
         }
         function _konfirmasi(n)
         {
           $.ajax({
-           url :'<?= base_url('aplikan/get_detail_confirm') ?>',
-           type:'post',
-           data:'no_pendaftaran='+n, 
-           dataType:'json',
-           chace:false,  
-         beforeSend:function(){
-             swal('info','sedang memuat data harap bersabar ..','success');
-         },success:function(data) 
-         {    
-            if(data > 0){ 
-            $('#hide_no_pendaftaran').html('<input type="hidden" name="no_pendaftaran" value="'+data.no_pend+'">');
-            $('#_pendaftaran').html(data.no_pendaftaran);
-            $('#jumlah').html(data.jumlah);
-            $('#file_pembayaran').html(data.file_pembayaran);
-            $('#tanggal').html(data.tanggal);
-            $('#id_user').html(data.id_user);     
-            $('#tampil_pembayaran').modal('show'); 
-          }else{
-           swal('keterangan','maaf untuk pendaftar belum ada pembayaran.','error');
-         } 
-        },error:function(data)
-        { 
-         swal('info','error tidak dapat meload data','error');     
-     }  
-     }); 
+             url :'<?= base_url('aplikan/get_detail_confirm') ?>',
+             type:'post',
+             data:'no_pendaftaran='+n, 
+             dataType:'json',
+             chace:false,  
+             beforeSend:function(){
+               swal('info','sedang memuat data harap bersabar ..','success');
+           },success:function(data) 
+           {    
+            
+                $('#hide_no_pendaftaran').html('<input type="hidden" name="no_pendaftaran" value="'+data.no_pend+'">');
+                $('#_pendaftaran').html(data.no_pendaftaran);
+                $('#jumlah').html(data.jumlah);
+                $('#file_pembayaran').html('<a href="<?= base_url('assets/file_pembayaran') ?>'+data.file_pembayaran+'" class="btn btn-info" target="_blank">Detail File</a>');
+                $('#tanggal').html(data.tanggal);
+                $('#id_user').html(data.id_user);     
+                $('#tampil_pembayaran').modal('show'); 
+            
+     },error:function(data)
+     { 
+       swal('info','error tidak dapat meload data','error');     
+   }  
+}); 
       }  
       /*function to confirm data*/
       $(function(){
         var no_pendaftaran = $('#no_pendaftaran').val();   
         $('#konfirmasi').click(function(){
           $.ajax({
-           url :'<?= base_url('aplikan/set_konfirmasi') ?>',
-           type:'post',
-           data:'no_pendaftaran='+no_pendaftaran,
-           chace:false,
-           dataType:'json',
-           beforeSend:function(){
-             swal('info','sedang memuat data harap bersabar ..','success');
-         },success:function(data){  
+             url :'<?= base_url('aplikan/set_konfirmasi') ?>',
+             type:'post',
+             data:'no_pendaftaran='+no_pendaftaran,
+             chace:false,
+             dataType:'json',
+             beforeSend:function(){
+               swal('info','sedang memuat data harap bersabar ..','success');
+           },success:function(data){  
             swal('info','sedang memuat data harap bersabar ..','success');
         },error:function(data){ 
-         } 
-       }); 
+        } 
+    }); 
       });
     });
 
-  </script>
+</script>
 </div>
 </div>
 </div>
@@ -185,10 +182,10 @@
             </div>
             <div class="modal-body"> 
                 <div class='panel-body'>
-                 <form method="POST" class='form-horizontal form-bordered'>
+                   <form method="POST" class='form-horizontal form-bordered'>
                     <div class='form-body'>  
-                     <br /><br /><br /><br />  
-                     <div class="form-group">
+                       <br /><br /><br /><br />  
+                       <div class="form-group">
                         <label for="varchar" class='control-label col-md-3'><b>No Pendaftaran</b></label>
                         <div class='col-md-9'>
                             <div id="no_pendaftaran"></div>
@@ -204,10 +201,10 @@
                     <div class="form-group">
                         <label for="varchar" class='control-label col-md-3'><b>File Pembayaran</b></label>
                         <div class='col-md-9'>
-                         <div id="file_pembayaran"></div>
-                     </div>
-                 </div>
-                 <div class="form-group">
+                           <div id="file_pembayaran"></div>
+                       </div>
+                   </div>
+                   <div class="form-group">
                     <label for="date" class='control-label col-md-3'><b>Tanggal</b></label>
                     <div class='col-md-9'>
                       <div id="tanggal"></div>
@@ -228,18 +225,18 @@
                 <div class='col-md-12'>
                     <div class='row'>
                         <div class='col-md-offset-3 col-md-9'>
-                         <button id="konfirmasi" class="btn btn-info"><i class='fa fa-check'></i>Konfirmasi</button> 
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </form>
+                           <button id="konfirmasi" class="btn btn-info"><i class='fa fa-check'></i>Konfirmasi</button> 
+                           <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </form>
 </div>
 
 </div>
- 
+
 </div>
 </div> 
 </div> 

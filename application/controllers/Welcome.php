@@ -62,8 +62,7 @@ class Welcome extends CI_Controller {
  { 
   $this->_rules(); 
   if ($this->form_validation->run() == FALSE) {
-  //$this->daftar();
-    echo validation_errors();
+   $this->daftar();
   } else {
     $id_periode = nama_gelombang('id_periode'); 
     $nomor_pendaftaran = nomor_pendaftaran();
@@ -123,27 +122,33 @@ function pembayaran_formulir_action()
 {
  if($_SERVER['REQUEST_METHOD'] == "POST")
  {
+   $no_pendaftaran = $this->input->post('no_pendaftaran');
+   $cek = $this->db->get_where('aplikan',array('no_pendaftaran'=>$no_pendaftaran)); 
+   if($cek->num_rows() > 0): 
 
    $conf['file_name'] = ' pembayaran_'.time();
-   $conf['file_types'] = 'pdf|png|jpg';
+   $conf['allowed_types'] = 'pdf|png|jpg';
    $conf['upload_path'] = 'assets/file_pembayaran';
-
-   $this->upload->initalize($conf);
+   $this->upload->initialize($conf);
    if($this->upload->do_upload('file_pembayaran'))
    { 
      $data = array ( 
       'no_pendaftaran'=>$this->input->post('no_pendaftaran'),
       'jumlah'=>$this->input->post('jumlah'),
-      'file_pembayaran'=>$this->input->post('file_pembayaran'),
-      'tanggal'=>$this->input->post('tanggal'),
+      'file_pembayaran'=>$this->upload->file_name,
+      'tanggal'=>date("Y-m-d"),
     ); 
      $this->db->insert('Pembayaran',$data);
      $pesan = array ('pesan'=>'berhasil');
      echo json_encode($pesan);
    }else{
-    $pesan = array ('pesan'=>$this->upload->display_errors());
+    $pesan = array ('pesan'=>'maaf file yang izinkan cuma pdf dan jpg');
     echo json_encode($pesan);
   } 
+else:
+  $pesan = array ('pesan'=>'No Pendaftaran Formulir tidak di temukan.');
+  echo json_encode($pesan);
+endif;
 } 
 }
 
@@ -158,11 +163,13 @@ function cek_data_pendaftaran()
 {
   if($_SERVER['REQUEST_METHOD'] == "POST"):
     $no_pendaftaran = $this->input->post('no_pendaftaran');
-    $data = $this->Depan_model->cek_data_pendaftaran($no_pendaftaran);
-    if($data->num_rows() > 0 ):
+    $data = $this->Depan_model->cek_data_pendaftaran($no_pendaftaran)->row_array();
+    if($data['pembayaran'] == 'Y'):
       $this->load->view('detail_data_pendaftaran',$x); 
+     elseif($data['pembayaran'] == 'N'):
+       echo "<div class='alert alert-warning'>Data Formulir anda sedang di proses.</div>";
     else:
-      echo "<div class='alert alert-danger'>Data tidak di temukan</div>";
+      echo "<div class='alert alert-danger'>Maaf nomor formulir tidak di temukan </div>";
     endif;   
   endif;
 }

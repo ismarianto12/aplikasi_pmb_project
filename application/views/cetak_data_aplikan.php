@@ -8,7 +8,37 @@
 		<title>Detail Data Pendaftaran Peserta</title>
 	</head>
 	<link href="<?= base_url() ?>assets/template/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?= base_url() ?>assets/template/css/style.css" rel="stylesheet">
+	 
+	 <style type="text/css">
+	 	@media print {
+	 		.make-grid(print-A4);
+	 		button{
+	 			display: none;
+	 		}
+	 		.container
+	 		{
+	 			margin-left: 0px;
+	 			width: auto;
+	 		}
+	 	}
+
+	 	.make-print-A4-column(@columns) {
+	 		@media print {
+	 			float: left;
+	 			width: percentage((@columns / @grid-columns));
+	 		}
+	 	}
+	 	html, 
+	 	body {
+	 		width: 1200px !important;
+	 	}
+
+	 	.hidden{display:none;visibility:hidden}
+	 	.visible-phone{display:none!important}
+	 	.visible-tablet{display:none!important}
+	 	.hidden-desktop{display:none!important}
+	 	.visible-desktop{display:inherit!important}
+	 </style>
 	<body>  
 		<div class='row'>
 			<div class='col-md-12'>

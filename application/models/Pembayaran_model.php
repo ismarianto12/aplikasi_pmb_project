@@ -13,18 +13,48 @@ class Pembayaran_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-    }
-
+    } 
     // datatables
     function json() {
-        $this->datatables->select('id_bayar,no_pendaftaran,jumlah,file_pembayaran,tanggal,id_user');
-        $this->datatables->from('pembayaran');
-        //add this line for join
-        //$this->datatables->join('table2', 'pembayaran.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('pembayaran/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('pembayaran/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", '');
-        return $this->datatables->generate();
-    }
+       $this->datatables->select('
+          a.id_aplikan,
+          a.id_periode,
+          a.no_pendaftaran as no_pend,
+          a.nama,
+          a.kelamin,
+          a.tempatlahir,
+          a.alamat,
+          a.kota,
+          a.propinsi,
+          a.kodePos,
+          a.rt,
+          a.rW,
+          a.telepon,
+          a.email,
+          a.no_hp,
+          a.jenisSekolah,
+          a.namaSekolah,
+          a.jurusanSekolah,
+          a.tahunLulus,
+          a.nilaiSekolah,
+          a.tgl_daftar,
+          a.prodi_1,
+          a.prodi_2,
+          a.prodi_3,
+          a.pembayaran,
 
+          b.id_bayar,b.no_pendaftaran,b.jumlah,b.file_pembayaran,b.tanggal,b.id_user,   
+          '); 
+         $this->datatables->from('aplikan a');
+         $this->datatables->join('pembayaran b','a.no_pendaftaran = b.no_pendaftaran','left');
+         if($this->input->post('periode')){
+          $this->datatables->where('a.id_periode',$this->input->post('periode'));
+         }else{ 
+         }
+         $this->datatables->where('a.pembayaran','Y');
+         $this->datatables->add_column('action', anchor(site_url('pembayaran/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_bayar');
+        return $this->datatables->generate();
+    } 
     // get all
     function get_all()
     {

@@ -1,5 +1,4 @@
- 
-<div class='row'>
+ <div class='row'>
     <div class='col-sm-12'>
       <?= $this->session->userdata('message') ?>
       <div class='white-box'>
@@ -13,7 +12,7 @@
                 <thead>
                     <tr>
                         <th width="80px">No</th>
-                        <th>Id Prodi</th>
+                        <th>Nama Prodi</th>
                         <th>Jumlah</th>
                         <th width="200px">Action</th>
                     </tr>
@@ -57,7 +56,7 @@
                         {
                             "data": "id_biaya",
                             "orderable": false
-                        },{"data": "id_prodi"},{"data": "jumlah"},
+                        },{"data": "nama_prodi"},{"data": "jumlah"},
                         {
                             "data" : "action",
                             "orderable": false,

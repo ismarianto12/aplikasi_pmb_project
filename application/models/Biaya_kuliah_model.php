@@ -14,13 +14,14 @@ class Biaya_kuliah_model extends CI_Model
     {
         parent::__construct();
     }
-
-    // datatables
+ 
     function json() {
-        $this->datatables->select('id_biaya,id_prodi,jumlah');
-        $this->datatables->from('biaya_kuliah');
-        //add this line for join
-        //$this->datatables->join('table2', 'biaya_kuliah.field = table2.field');
+        $this->datatables->select(' 
+            a.id_biaya,a.id_prodi,a.jumlah,
+            b.id_prodi,b.nama_prodi,b.kode_prodi,b.akreditasi,b.jenjang   
+            ');
+        $this->datatables->from('biaya_kuliah a');
+        $this->datatables->join('prodi b', 'a.id_prodi = b.id_prodi','left');
         $this->datatables->add_column('action', anchor(site_url('biaya_kuliah/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('biaya_kuliah/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_biaya');
         return $this->datatables->generate();
     }
