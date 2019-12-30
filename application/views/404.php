@@ -2,7 +2,7 @@
     <div class="error-header"> </div>
     <div class="container ">
         <section class="error-container text-center">
-            <h1>400</h1>
+            <h1>400 TES</h1>
             <div class="error-divider">
                 <h2>ooops!!</h2>
                 <p class="description" style="color: #000">Akses Tidak Dizinkan Atau Level Akses Salah.</p>
