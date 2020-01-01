@@ -17,9 +17,15 @@ class Periode_model extends CI_Model
 
     // datatables
     function json() {
+        $nama_gelombang = nama_gelombang();
+        
         $this->datatables->select('id_periode,tahun_akademik,tahun,semester,buka,mulai,selesai');
         $this->datatables->from('periode');
-        //add this line for join
+        if($this->input->post('periode')){
+           $this->datatables->where('id_periode',$this->input->post('periode')); 
+        }else{
+          $this->datatables->where('id_periode',$nama_gelombang);
+        } 
         //$this->datatables->join('table2', 'periode.field = table2.field');
         $this->datatables->add_column('action', anchor(site_url('periode/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('periode/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_periode');
         return $this->datatables->generate();
