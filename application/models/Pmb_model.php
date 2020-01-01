@@ -17,10 +17,61 @@ class Pmb_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_pendaftar,id_periode,no_pendaftaran,nomor_pmb,password,nama,kelamin,tempatlahir,alamat,kota,propinsi,kodePos,rt,rW,telepon,handphone,email,no_hp,jenisSekolah,namaSekolah,jurusanSekolah,tahunLulus,nilaiSekolah,no_ijazah,prog_pendidikan,namaAyah,pendidikanAyah,pekerjaanAyah,catatan,jurusan,sumberinfo,tgl_daftar,prodi_1,prodi_2,prodi_3,pembayaran,lulus,program_pen');
-        $this->datatables->from('pmb');
+        $this->datatables->select('
+        	a.id_pendaftar,
+        	a.id_periode,a.no_pendaftaran,
+        	a.nomor_pmb,
+        	a.password,
+        	a.nama,
+        	a.kelamin,
+        	a.tempatlahir,
+        	a.alamat,
+        	a.kota,
+        	a.propinsi,
+        	a.kodePos,
+        	a.rt,
+        	a.rW,
+        	a.telepon,
+        	a.handphone,
+        	a.email,
+        	a.no_hp,a.jenisSekolah,
+        	a.namaSekolah,
+        	a.jurusanSekolah,
+        	a.tahunLulus,
+        	a.nilaiSekolah,
+        	a.no_ijazah,
+        	a.prog_pendidikan,
+        	a.namaAyah,
+        	a.pendidikanAyah,
+        	a.pekerjaanAyah,
+        	a.catatan,
+        	a.jurusan,
+        	a.sumberinfo,
+        	a.tgl_daftar,
+        	a.prodi_1,
+        	a.prodi_2,
+        	a.prodi_3,
+        	a.pembayaran,
+        	a.lulus,
+        	a.program_pen,  
+        
+         b.id_periode,b.tahun_akademik,b.tahun,b.semester,b.buka,b.mulai,b.selesai,
+
+      c.id_bayar,c.no_pendaftaran,c.jumlah,c.file_pembayaran,c.tanggal,c.id_user,
+
+      d.id_prodi,d.nama_prodi,d.kode_prodi,d.akreditasi,d.jenjang
+      ');
+    $this->datatables->from('pmb a');
         //add this line for join
-        //$this->datatables->join('table2', 'pmb.field = table2.field');
+    $this->datatables->join('periode b', 'a.id_periode = b.id_periode','left');
+    $this->datatables->join('pembayaran c', 'a.no_pendaftaran = c.no_pendaftaran','left');
+    $this->datatables->join('prodi d','d.id_prodi= a.prodi_1','d.id_prodi= a.prodi_2','d.id_prodi= a.prodi_3','left');  
+    if($this->input->post('periode')):
+      $this->datatables->where('a.id_periode',$this->input->post('periode'));
+    else:
+     $this->datatables->where('a.id_periode',$periode);
+   endif;
+
         $this->datatables->add_column('action', anchor(site_url('pmb/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('pmb/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_pendaftar');
         return $this->datatables->generate();
     }
