@@ -22,11 +22,11 @@ class Biaya_kuliah extends CI_Controller
 
     public function index()
     {
-       $x['judul'] = 'Data : Biaya kuliah';
-       $this->template->load('template','biaya_kuliah/biaya_kuliah_list',$x);
-   } 
-   
-   public function json() {
+     $x['judul'] = 'Data : Biaya kuliah';
+     $this->template->load('template','biaya_kuliah/biaya_kuliah_list',$x);
+ } 
+ 
+ public function json() {
     header('Content-Type: application/json');
     echo $this->Biaya_kuliah_model->json();
 }
