@@ -19,7 +19,8 @@ class Pmb_model extends CI_Model
     function json() {
         $this->datatables->select('
         	a.id_pendaftar,
-        	a.id_periode,a.no_pendaftaran,
+        	a.id_periode,
+            a.no_pendaftaran as no_pend,
         	a.nomor_pmb,
         	a.password,
         	a.nama,

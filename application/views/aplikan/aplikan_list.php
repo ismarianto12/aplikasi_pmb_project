@@ -152,7 +152,7 @@
          },success:function(data) 
          {    
 
-          $('#hide_no_pendaftaran').html('<input type="hidden" id="no_pendaftaran" name="no_pendaftaran" value="'+data.no_pendaftaran+'">');
+          $('.hide_no_pendaftaran').html('<input type="hidden" id="no_pendaftaran" name="no_pendaftaran" value="'+data.no_pendaftaran+'">');
           $('#_pendaftaran').html(data.no_pendaftaran);
           $('#jumlah').html(data.jumlah);
           $('#file_pembayaran').html('<a href="<?= base_url('assets/file_pembayaran') ?>/'+data.file_pembayaran+'" class="btn btn-info" target="_blank">Detail File</a>');
@@ -162,7 +162,7 @@
 
         },error:function(data)
         { 
-         swal('info','error tidak dapat meload data','error');     
+         swal('info','maaf untuk saat ini peserta belum mengkonfirmasi pembayaran.','error');     
        }  
      }); 
       }  
@@ -190,7 +190,7 @@
            <div class="form-group">
             <label for="varchar" class='control-label col-md-3'><b>No Pendaftaran</b></label>
             <div class='col-md-9'> 
-              <div id="hide_no_pendaftaran"></div>
+              <div class="hide_no_pendaftaran"></div>
               <div id="_pendaftaran"></div>
             </div>
           </div>
@@ -234,25 +234,22 @@
          </div>
        </div>
      </form>
-   </div>
-
- </div>
-
+   </div> 
+ </div>  
 </div>
 </div> 
 </div> 
 <!-- end data model -->
-
 <script type="text/javascript">
   /*function to confirm data*/
-  $(function(){
-    var no_pendaftaran = $('#no_pendaftaran').val();   
+  $(function(){ 
+   // var no_pendaftaran = $('#no_pedaftaran').val();   
     $('#konfirmasi').submit(function(e){
       e.preventDefault();
       $.ajax({
        url :'<?= base_url('aplikan/confirm') ?>',
        type:'post',
-       data:'no_pendaftaran='+no_pendaftaran,
+       data: $(this).serialize(),
        dataType:'json',
        chace:false, 
        beforeSend:function(){
@@ -260,7 +257,7 @@
        },success:function(data){  
         swal('info','sedang memuat data harap bersabar ..','success');
       },error:function(data){ 
-        swal('info','sedang memuat data harap bersabar ..','error');
+        swal('info','serer belum bisa menerima request client harap coba beberapa saat lagi.','error');
       } 
     }); 
     });

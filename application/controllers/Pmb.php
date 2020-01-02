@@ -9,7 +9,7 @@
   	exit('No direct script access allowed');
 
   class Pmb extends CI_Controller
-  {
+  { 
   	function __construct()
   	{
   		parent::__construct();
@@ -22,7 +22,8 @@
 
   	public function index()
   	{
-  		$x['judul'] = 'Data : Pmb';
+  		$x['judul'] = 'Data : Peserta PMB';
+      $x['tahun_akademik']  = $this->db->get('periode');
   		$this->template->load('template','pmb/pmb_list',$x);
   	} 
   	

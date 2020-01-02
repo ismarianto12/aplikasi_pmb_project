@@ -90,7 +90,7 @@ function get_detail_confirm()
 }
 
 function confirm(){
-  //if($_SERVER["REQUEST_METHOD"] == "POST"):
+ if($_SERVER["REQUEST_METHOD"] == "POST"):
    $no_pendaftaran = $this->input->post('no_pendaftaran');
    if($this->input->post('konfirmasi') == 'Y'){ 
      /*salin data dari table aplikan ke table pmb*/
@@ -161,7 +161,8 @@ function confirm(){
     } 
   }elseif($this->input->post('konfirmasi') == 'N'){ 
 
-  } 
+  }  
+endif;
    
 } 
 

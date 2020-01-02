@@ -40,7 +40,7 @@ public function detail($id)
           'id_prodi' => $row->id_prodi,
           'jumlah' => $row->jumlah,
           
-          'judul'=>'Detail :  BIAYA_KULIAH',
+          'judul'=>'Detail rincian biaya kuliah.',
       );
         $this->template->load('template','biaya_kuliah/biaya_kuliah_read', $data);
     } else {
@@ -86,7 +86,7 @@ public function edit($id)
 
     if ($row) {
         $data = array(
-            'judul'=>'Data BIAYA_KULIAH',
+            'judul'=>'Edit data biaya kuliah',
             'button' => 'Update',
             'action' => site_url('biaya_kuliah/edit_data'),
             'id_biaya' => set_value('id_biaya', $row->id_biaya),
