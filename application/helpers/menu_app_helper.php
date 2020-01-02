@@ -68,12 +68,12 @@ function build_main_menu($parent, $menu) {
 
       if (!isset($menu['parents'][$itemId])) {
         if(preg_match("/^http/", $menu['items'][$itemId]->link)) {
-          $html .= "<li><a href='".$menu['items'][$itemId]->link."'>".$icon."".$menu['items'][$itemId]->nama_menu."</a></li>";
+          $html .= "<li><a href='".strtolower($menu['items'][$itemId]->link)."'>".$icon."".$menu['items'][$itemId]->nama_menu."</a></li>";
         }else{
           if($menu['items'][$itemId]->id_parent == 0 ):
-           $html .= "<li><a href='".base_url().''.$menu['items'][$itemId]->link."'>".$icon."<span  class='hide-menu'>".$menu['items'][$itemId]->nama_menu."</a></li>";
+           $html .= "<li><a href='".strtolower(base_url().''.$menu['items'][$itemId]->link)."'>".$icon."<span  class='hide-menu'>".$menu['items'][$itemId]->nama_menu."</a></li>";
           else:
-           $html .= "<li><a href='".base_url().''.$menu['items'][$itemId]->link."'>".$icon."<span>".$menu['items'][$itemId]->nama_menu."</a></li>";
+           $html .= "<li><a href='".strtolower(base_url().''.$menu['items'][$itemId]->link)."'>".$icon."<span>".$menu['items'][$itemId]->nama_menu."</a></li>";
           endif;
         }
       }

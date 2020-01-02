@@ -14,8 +14,11 @@
                 <?php endforeach ?>
             </select>
         </div>
-    </div>
-
+    </div> 
+   <div class="clearfix"></div>
+   <br />
+    <div class="alert alert-danger">Data pmb tersedia , silahkan proses dulu pada halaman aplikan.</div>
+  
     <table class="table" id="datatables">
         <thead>
             <tr>
@@ -38,10 +41,8 @@
                 <th>Tgl Daftar</th>    
                 <th width="200px">Action</th>
             </tr>
-        </thead>
-
+        </thead> 
     </table>
-
     <script type="text/javascript">
         $(document).ready(function() {
             $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
@@ -82,7 +83,7 @@
                 {
                     "data": "id_pendaftar",
                     "orderable": false
-                },{"data": "id_periode"},{"data": "no_pendaftaran"},{"data": "nomor_pmb"},{"data": "password"},{"data": "nama"},{"data": "kelamin"},{"data": "tempatlahir"},{"data": "alamat"},{"data": "kota"},{"data": "propinsi"},{"data": "kodePos"},{"data": "rt"},{"data": "rW"},{"data": "telepon"},{"data": "handphone"},{"data": "email"},{"data": "no_hp"},{"data": "tgl_daftar"},
+                },{"data": "id_periode"},{"data": "nomor_pmb"},{"data": "nama"},{"data": "kelamin"},{"data": "tempatlahir"},{"data": "alamat"},{"data": "kota"},{"data": "propinsi"},{"data": "kodePos"},{"data": "rt"},{"data": "rW"},{"data": "telepon"},{"data": "handphone"},{"data": "email"},{"data": "no_hp"},{"data": "tgl_daftar"},
                 {
                     "data" : "action",
                     "orderable": false,

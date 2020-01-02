@@ -20,7 +20,7 @@
   		$this->load->library('datatables');
   	}
 
- 	public function edit($id) 
+ 	public function index() 
   	{
   		$row = $this->db->get('identitas')->row(); 
   		if ($row) {

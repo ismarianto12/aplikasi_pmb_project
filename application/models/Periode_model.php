@@ -17,8 +17,7 @@ class Periode_model extends CI_Model
 
     // datatables
     function json() {
-        $nama_gelombang = nama_gelombang();
-        
+        $nama_gelombang = nama_gelombang('id_periode'); 
         $this->datatables->select('id_periode,tahun_akademik,tahun,semester,buka,mulai,selesai');
         $this->datatables->from('periode');
         if($this->input->post('periode')){
