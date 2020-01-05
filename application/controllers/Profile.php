@@ -7,18 +7,32 @@ class Profile extends CI_controller
 	}
 	function index()
 	{ 
-		$row = $this->db->get_where('login',array('id_user'=>$this->session->id_user))->row();
+	if($this->session->level =='pendaftar'):
+		$row = $this->db->get_where('pmb',array('no_pendaftaran'=>$this->session->no_pendaftaran))->row();
 		$x =array('judul' =>'Edit Profile',
-			'id_user' =>$row->id_user,
-			'username' =>$row->username,
+			'id_pendaftar' =>$row->id_pendaftar,
+			'username' =>$row->no_pendaftaran,
 			'password' =>$row->password,
 			'nama' =>$row->nama,
-			'level' =>$row->level,
+			'level' =>'pendaftar',
 			'foto' =>$row->foto,
-			'email' =>$row->email, 
-			'active' =>$row->active, 
+			'email' =>$row->email,   
 		);
-		$this->template->load('template','profil',$x);
+ 	  else:
+	  	$row = $this->db->get_where('login',array('id_user'=>$this->session->id_user))->row();
+	  	$x =array('judul' =>'Edit Profile',
+	  		'id_user' =>$row->id_user,
+	  		'username' =>$row->username,
+	  		'password' =>$row->password,
+	  		'nama' =>$row->nama,
+	  		'level' =>$row->level,
+	  		'foto' =>$row->foto,
+	  		'email' =>$row->email, 
+	  		'active' =>$row->active, 
+	  	); 
+	endif; 
+	$this->template->load('template','profil',$x);
+	
 	}
 	function action_insert(){
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { 

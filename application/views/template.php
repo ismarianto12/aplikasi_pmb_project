@@ -129,9 +129,16 @@
               </div>
             </div>
             <nav class="sidebar-nav"> 
+              <?php if($this->session->level != 'pendaftar'): ?>
              <?= main_menu('Bottom',$this->session->level) ?>
-           </nav>
-
+             <?php elseif($this->session->level == 'pendaftar'): ?>
+                  <ul id="side-menu" class="in">
+                  <li><a href="<?= base_url() ?>"><i class="icon-home  fa-fw"></i><span class="hide-menu">Home</span></a></li>
+                  <li><a href="<?= base_url('pendaftar/lengkapi_pendaftaran') ?>"><i class="icon-list  fa-fw"></i><span class="hide-menu">Lengkapi Pendaftaran</span></a></li> 
+                  <li><a href="<?= base_url('pendaftar/cetak_kartu') ?>"><i class="icon-list  fa-fw"></i><span class="hide-menu">Cetak kartu ujian.</span></a></li> 
+                </ul>
+              <?php endif; ?>
+           </nav> 
          </div>
        </aside>
        <!-- ===== Left-Sidebar-End ===== -->

@@ -165,8 +165,7 @@ function confirm(){
   }elseif($this->input->post('konfirmasi') == 'N'){ 
     
   }  
-endif;
-   
+endif; 
 } 
 
 function detail($id)

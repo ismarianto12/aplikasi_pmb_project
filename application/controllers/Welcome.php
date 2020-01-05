@@ -181,20 +181,33 @@ function login(){
   }else{
    $username = $this->input->post('username'); 
    $password = $this->input->post('password');
+   
+   $system = $this->db->limit(1)->get_where('login',array('username'=>$username,'password'=>md5($password)));
+   $calon_pmb = $this->db->limit(1)->get_where('pmb',array('no_pendaftaran'=>$username,'password'=>md5($password)));
 
-   $cek = $this->db->limit(1)->get_where('login',array('username'=>$username,'password'=>md5($password)));
-
-   if ($cek->num_rows() > 0) {
+   if ($system->num_rows() > 0) {
     $session = [ 
-      'username'=>$cek->row()->username,
-      'password'=>$cek->row()->password,
-      'nama'=>$cek->row()->nama,
-      'id_user'=>$cek->row()->id_user,
-      'level'=>$cek->row()->level,
+      'username'=>$system->row()->username,
+      'password'=>$system->row()->password,
+      'nama'=>$system->row()->nama,
+      'id_user'=>$system->row()->id_user,
+      'level'=>$system->row()->level,
       'login'=>TRUE,
     ];
     $this->session->set_userdata($session);
-    echo "y";
+    echo "y";  
+  }else if($calon_pmb->num_rows() > 0){ 
+   $session = [ 
+    'username'=>$calon_pmb->row()->no_pendaftaran,
+    'password'=>$calon_pmb->row()->password,
+    'nama'=>$calon_pmb->row()->nama,
+    'no_pendaftaran'=>$calon_pmb->row()->no_pendaftaran,
+    'level'=>'pendaftar',
+    'id_user'=>$calon_pmb->row()->no_pendaftaran,
+    'login'=>TRUE,
+  ];
+  $this->session->set_userdata($session);
+  echo "y";   
   }else{
    echo "n";
  }
