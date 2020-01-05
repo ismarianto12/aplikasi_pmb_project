@@ -256,15 +256,15 @@
        swal('info','sedang memuat data harap bersabar ..','success');
      },success:function(data){  
       if(periksa == 'Y'){ 
-      swal('info','data berhasil di konversi ke peserta pmb','success');
-      $("#datatables").DataTable().ajax.reload();
-     }else{
-      swal('info','data ditolak tidak bisa di konversi ke peserta pmb','warning');
+        swal('info','data berhasil di konversi ke peserta pmb','success');
+        $("#datatables").DataTable().ajax.reload();
+      }else{
+        swal('info','data ditolak tidak bisa di konversi ke peserta pmb','warning');
       } 
-    $('#tampil_pembayaran').modal('hide');
+      $('#tampil_pembayaran').modal('hide');
     },error:function(data){ 
       swal('info','serer belum bisa menerima request client harap coba beberapa saat lagi.','error');
-   } 
+    } 
   }); 
   });
  });
