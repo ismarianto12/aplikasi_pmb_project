@@ -150,8 +150,7 @@
          beforeSend:function(){
            swal('info','sedang memuat data harap bersabar ..','success');
          },success:function(data) 
-         {    
-
+         {     
           $('.hide_no_pendaftaran').html('<input type="hidden" id="no_pendaftaran" name="no_pendaftaran" value="'+data.no_pendaftaran+'">');
           $('#_pendaftaran').html(data.no_pendaftaran);
           $('#jumlah').html(data.jumlah);
@@ -166,7 +165,7 @@
        }  
      }); 
       }  
-  
+
     </script>
   </div>
 </div>
@@ -215,7 +214,7 @@
         <div class="form-group">
           <label for="date" class='control-label col-md-3'><b>Periksa .</b></label>
           <div class='col-md-9'>
-            <select name="periksa" class="form-control">
+            <select name="periksa" id="periksa" class="form-control">
               <option value="Y">Lunas</option>
               <option value="N">Belum Lunas</option>
             </select>
@@ -243,23 +242,30 @@
 <script type="text/javascript">
   /*function to confirm data*/
   $(function(){ 
-   // var no_pendaftaran = $('#no_pedaftaran').val();   
-    $('#konfirmasi').submit(function(e){
-      e.preventDefault();
-      $.ajax({
-       url :'<?= base_url('aplikan/confirm') ?>',
-       type:'post',
-       data: $(this).serialize(),
-       dataType:'json',
-       chace:false, 
-       beforeSend:function(){
-         swal('info','sedang memuat data harap bersabar ..','success');
-       },success:function(data){  
-        swal('info','sedang memuat data harap bersabar ..','success');
-      },error:function(data){ 
-        swal('info','serer belum bisa menerima request client harap coba beberapa saat lagi.','error');
+   var periksa = $('#periksa').val();
+
+   $('#konfirmasi').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+     url :'<?= base_url('aplikan/confirm') ?>',
+     type:'post',
+     data: $(this).serialize(),
+     //dataType:'json',
+     chace:false, 
+     beforeSend:function(){
+       swal('info','sedang memuat data harap bersabar ..','success');
+     },success:function(data){  
+      if(periksa == 'Y'){ 
+      swal('info','data berhasil di konversi ke peserta pmb','success');
+      $("#datatables").DataTable().ajax.reload();
+     }else{
+      swal('info','data ditolak tidak bisa di konversi ke peserta pmb','warning');
       } 
-    }); 
-    });
+    $('#tampil_pembayaran').modal('hide');
+    },error:function(data){ 
+      swal('info','serer belum bisa menerima request client harap coba beberapa saat lagi.','error');
+   } 
+  }); 
   });
+ });
 </script>

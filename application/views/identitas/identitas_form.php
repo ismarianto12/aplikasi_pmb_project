@@ -5,9 +5,9 @@
             <div class='panel-heading'><?= ucfirst($judul) ?></div>
             <div class='panel-wrapper collapse in' aria-expanded='true'>
                 <div class='panel-body'>
-                    <form action="<?php echo $action; ?>" method="post" class='form-horizontal form-bordered'>
+                    <form action="<?php echo $action; ?>" method="post" class='form-horizontal form-bordered' enctype="multipart/form-data">
                         <div class='form-body'> 
-                           ** ) Harap Isikan data yang di butuhkan pada form.
+                           <?= $this->session->flashdata('message'); ?>
                            <br /><br /><br /><br /> 
                            <div class="form-group">
                             <label for="varchar" class='control-label col-md-3'><b>Kode Hukum<?php echo form_error('KodeHukum') ?></b></label>
@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label for="date" class='control-label col-md-3'><b>Tgl Akta<?php echo form_error('TglAkta') ?></b></label>
                             <div class='col-md-9'>
-                                <input type="text" class="form-control" name="TglAkta" id="TglAkta" placeholder="TglAkta" value="<?php echo $TglAkta; ?>" />
+                                <input type="date" class="form-control" name="TglAkta" id="TglAkta" placeholder="TglAkta" value="<?php echo $TglAkta; ?>" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -106,9 +106,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                     <img src=" 
+                        <?php if(file_exists('assets/img/'.$Logo)){
+                   echo base_url('assets/img/').$Logo;     
+                 }else{
+                   echo base_url('assets/img/no_image.jpg');
+                 } ?>" class="img-responsive" style="width:120px;height: 120px">  
                             <label for="varchar" class='control-label col-md-3'><b>Logo<?php echo form_error('Logo') ?></b></label>
                             <div class='col-md-9'>
-                                <input type="text" class="form-control" name="Logo" id="Logo" placeholder="Logo" value="<?php echo $Logo; ?>" />
+                                <input type="file" class="form-control" name="logo_kampus" id="Logo" placeholder="Logo" value="" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -137,9 +143,7 @@
                                 <textarea class="form-control" rows="3" name="CatatanKursiUAS" id="CatatanKursiUAS" placeholder="CatatanKursiUAS"><?php echo $CatatanKursiUAS; ?></textarea>
                             </div>
                         </div>
-                        <input type="hidden" name="Kode" value="<?php echo $Kode; ?>" /> 
-
-
+                        <input type="hidden" name="Kode" value="<?php echo $Kode; ?>" />   
                         <div class='form-actions'>
                             <div class='row'>
                                 <div class='col-md-12'>

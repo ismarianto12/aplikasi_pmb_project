@@ -68,15 +68,12 @@
 </div>
 <br />
 <div class="clearfix"></div>
-
 <div class="col-lg-12">
     <div class="white-box">
         <h3 class="m-b-0 box-title">Silahkan klik tombol pendaftaran untuk mulai </h3> 
         <div class="row">
-            <div class="col-lg-2 col-sm-4 col-xs-12"><br /><button class="btn btn-block btn-success">Daftar</button>
-            </div>
-
-        </div>
-
+            <div class="col-lg-2 col-sm-4 col-xs-12"><br /><a href="<?= base_url('daftar.aspx') ?>" class="btn btn-block btn-success" target="_blank">Daftar</a>
+            </div> 
+        </div> 
     </div>
 </div>

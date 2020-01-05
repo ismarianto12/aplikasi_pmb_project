@@ -92,7 +92,7 @@ function get_detail_confirm()
 function confirm(){
  if($_SERVER["REQUEST_METHOD"] == "POST"):
    $no_pendaftaran = $this->input->post('no_pendaftaran');
-   if($this->input->post('konfirmasi') == 'Y'){ 
+   if($this->input->post('periksa') == 'Y'){ 
      /*salin data dari table aplikan ke table pmb*/
      $data_aplikan = $this->db->get_where('aplikan',array('no_pendaftaran'=>$no_pendaftaran));
      if($data_aplikan->num_rows() > 0){
@@ -100,7 +100,7 @@ function confirm(){
       /*data table update*/
       $data_update = array ('pembayaran'=>'Y');
       $this->db->update('aplikan',$data_update,array('no_pendaftaran'=>$no_pendaftaran)); 
-      $cek_pmb = $this->db->where('pmb',array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
+      $cek_pmb = $this->db->get_where('pmb',array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
       if($cek_pmb->num_rows() > 0):
         $data_pmb = array(
          'id_periode'=>$row->id_periode,
@@ -128,7 +128,9 @@ function confirm(){
          'prodi_3'=>$row->prodi_3,
          'pembayaran'=>$row->pembayaran, 
        ); 
-        $this->db->update('pmb',$data_pmb,array('no_pendaftaran'=>$sql->no_pendaftaran));
+        $this->db->update('pmb',$data_pmb,array('no_pendaftaran'=>$row->no_pendaftaran));
+        $this->db->update('aplikan',array('set_pmb'=>'Y'),array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
+
       else:
         $data_pmb = array(
          'id_periode'=>$row->id_periode,
@@ -157,10 +159,11 @@ function confirm(){
          'pembayaran'=>$row->pembayaran, 
        ); 
         $this->db->insert('pmb',$data_pmb); 
+        $this->db->update('aplikan',array('set_pmb'=>'Y'),array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
       endif;   
     } 
   }elseif($this->input->post('konfirmasi') == 'N'){ 
-
+    
   }  
 endif;
    

@@ -43,6 +43,7 @@ class Aplikan_model extends CI_Model
       a.prodi_1,
       a.prodi_2,
       a.prodi_3,
+      a.set_pmb,
       a.pembayaran,
 
       b.id_periode,b.tahun_akademik,b.tahun,b.semester,b.buka,b.mulai,b.selesai,
@@ -61,6 +62,7 @@ class Aplikan_model extends CI_Model
     else:
      $this->datatables->where('a.id_periode',$periode);
    endif;
+   $this->datatables->where('a.set_pmb','N');
    $this->datatables->add_column('nama_periode','$1','tahun_akademik'); 
    $this->datatables->add_column('action', anchor(site_url('aplikan/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."<a href='#' class='btn btn-info btn-xs' onclick='javasciprt: return _konfirmasi(\"$1\")'><i class='fa fa-money'></i> Konfirmasi  Pembayaran</a> <a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'no_pend');
    return $this->datatables->generate();

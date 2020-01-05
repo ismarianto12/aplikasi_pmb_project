@@ -63,8 +63,14 @@
   		$this->_rules();
 
   		if ($this->form_validation->run() == FALSE) {
-  			$this->edit($this->input->post('Kode', TRUE));
-  		} else {
+  			  $this->index();
+  		} else { 
+      if($_FILES['logo_kampus']['name']){ 
+       $conf['file_name'] = 'logo'.time();
+       $conf['upload_path'] = 'assets/img/';
+       $conf['allowed_types'] = 'png|jpg|bmp';
+       $this->upload->initialize($conf);
+       if($this->upload->do_upload('logo_kampus')){ 
   			$data = array(
   				'KodeHukum' => $this->input->post('KodeHukum',TRUE),
   				'KodeInstitusi' => $this->input->post('KodeInstitusi',TRUE),
@@ -82,7 +88,7 @@
   				'TglAkta' => $this->input->post('TglAkta',TRUE),
   				'NoSah' => $this->input->post('NoSah',TRUE),
   				'TglSah' => $this->input->post('TglSah',TRUE),
-  				'Logo' => $this->input->post('Logo',TRUE),
+  				'Logo' => $this->upload->file_name,
   				'StartNoIdentitas' => $this->input->post('StartNoIdentitas',TRUE),
   				'NoIdentitas' => $this->input->post('NoIdentitas',TRUE),
   				'CatatanDPNA' => $this->input->post('CatatanDPNA',TRUE),
@@ -91,8 +97,43 @@
   			$this->Identitas_model->update($this->input->post('Kode', TRUE), $data);
   			$this->session->set_flashdata('message', '<div class="alert alert-success fade-in"><i class="fa fa-check"></i>Identitas instansi berhasil di update.</div>');
   			redirect(site_url('identitas'));
-  		}
+  		}else{
+        $this->session->set_flashdata('message',($this->upload->display_errors('<div class="alert alert-success">','</div>')));
+        redirect(base_url('identitas'));
+      }
+     /*if file is empty*/ 
+      }else{ 
+      print_r($_FILES);
+      exit();
+      $data = array(
+          'KodeHukum' => $this->input->post('KodeHukum',TRUE),
+          'KodeInstitusi' => $this->input->post('KodeInstitusi',TRUE),
+          'Nama' => $this->input->post('Nama',TRUE),
+          'TglMulai' => $this->input->post('TglMulai',TRUE),
+          'Alamat1' => $this->input->post('Alamat1',TRUE),
+          'Alamat2' => $this->input->post('Alamat2',TRUE),
+          'Kota' => $this->input->post('Kota',TRUE),
+          'KodePos' => $this->input->post('KodePos',TRUE),
+          'Telepon' => $this->input->post('Telepon',TRUE),
+          'Fax' => $this->input->post('Fax',TRUE),
+          'Email' => $this->input->post('Email',TRUE),
+          'Website' => $this->input->post('Website',TRUE),
+          'NoAkta' => $this->input->post('NoAkta',TRUE),
+          'TglAkta' => $this->input->post('TglAkta',TRUE),
+          'NoSah' => $this->input->post('NoSah',TRUE),
+          'TglSah' => $this->input->post('TglSah',TRUE),
+          'StartNoIdentitas' => $this->input->post('StartNoIdentitas',TRUE),
+          'NoIdentitas' => $this->input->post('NoIdentitas',TRUE),
+          'CatatanDPNA' => $this->input->post('CatatanDPNA',TRUE),
+          'CatatanKursiUAS' => $this->input->post('CatatanKursiUAS',TRUE),
+        ); 
+        $this->Identitas_model->update($this->input->post('Kode', TRUE), $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success fade-in"><i class="fa fa-check"></i>Identitas instansi berhasil di update.</div>');
+        redirect(site_url('identitas')); 
+      }
+
   	}
+  }
  
   	public function _rules() 
   	{
@@ -111,8 +152,7 @@
   		$this->form_validation->set_rules('NoAkta', 'noakta', 'trim|required');
   		$this->form_validation->set_rules('TglAkta', 'tglakta', 'trim|required');
   		$this->form_validation->set_rules('NoSah', 'nosah', 'trim|required');
-  		$this->form_validation->set_rules('TglSah', 'tglsah', 'trim|required');
-  		$this->form_validation->set_rules('Logo', 'logo', 'trim|required');
+  		$this->form_validation->set_rules('TglSah', 'tglsah', 'trim|required'); 
   		$this->form_validation->set_rules('StartNoIdentitas', 'startnoidentitas', 'trim|required');
   		$this->form_validation->set_rules('NoIdentitas', 'noidentitas', 'trim|required');
   		$this->form_validation->set_rules('CatatanDPNA', 'catatandpna', 'trim|required');
