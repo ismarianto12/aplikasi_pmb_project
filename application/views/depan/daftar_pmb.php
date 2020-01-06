@@ -4,30 +4,32 @@
             <div class='panel-heading'><?= ucfirst($judul) ?></div>
             <div class='panel-wrapper collapse in' aria-expanded='true'>
                 <div class='panel-body'> 
-                  <h3 class="box-title m-t-40">Data Pribadi</h3>
-                  <hr />
-                  <form action="<?php echo $action; ?>" method="post" class='form-horizontal form-bordered'>
-                    <div class='form-body'> 
+
+                   <?php if($tahun_akademik == 'Y'): ?>
+                     <h3 class="box-title m-t-40">Data Pribadi</h3>
+                     <hr />
+                     <form action="<?php echo $action; ?>" method="post" class='form-horizontal form-bordered'>
+                        <div class='form-body'> 
+                           <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="varchar" class='control-label col-md-3'><b>Nama<?php echo form_error('nama') ?></b></label>
+                                <div class='col-md-9'>
+                                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="enum" class='control-label col-md-3'><b>Kelamin<?php echo form_error('kelamin') ?></b></label>
+                                <div class='col-md-9'>
+                                 <select class="form-control" name="kelamin">
+                                     <option value="L">Laki laki</option>
+                                     <option value="P">Perempuan</option> 
+                                 </select>
+                             </div>
+                         </div>
+                     </div>
                      <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="varchar" class='control-label col-md-3'><b>Nama<?php echo form_error('nama') ?></b></label>
-                            <div class='col-md-9'>
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="enum" class='control-label col-md-3'><b>Kelamin<?php echo form_error('kelamin') ?></b></label>
-                            <div class='col-md-9'>
-                               <select class="form-control" name="kelamin">
-                                   <option value="L">Laki laki</option>
-                                   <option value="P">Perempuan</option> 
-                               </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="varchar" class='control-label col-md-3'><b>Tempat lahir<?php echo form_error('tempatlahir') ?></b></label>
                             <div class='col-md-9'>
@@ -164,50 +166,53 @@
                         <div class='col-md-9'> 
                             <select class="form-control" name="prodi_1">
                                 <?php foreach($data_prodi->result_array() as $data): ?>
-                                 <option value="<?= $data['id_prodi'] ?>"><?= $data['nama_prodi'] ?></option>   
-                               <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                     
-                    <div class="form-group">
-                        <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi II <?php echo form_error('prodi_1') ?></b></label>
-                        <div class='col-md-9'> 
-                            <select class="form-control" name="prodi_2">
-                                <?php foreach($data_prodi->result_array() as $data): ?>
                                    <option value="<?= $data['id_prodi'] ?>"><?= $data['nama_prodi'] ?></option>   
                                <?php endforeach; ?>
                            </select>
                        </div>
                    </div>
- 
-                    
+                   
                    <div class="form-group">
-                    <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi III <?php echo form_error('prodi_1') ?></b></label>
+                    <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi II <?php echo form_error('prodi_1') ?></b></label>
                     <div class='col-md-9'> 
-                        <select class="form-control" name="prodi_3">
+                        <select class="form-control" name="prodi_2">
                             <?php foreach($data_prodi->result_array() as $data): ?>
                              <option value="<?= $data['id_prodi'] ?>"><?= $data['nama_prodi'] ?></option>   
                          <?php endforeach; ?>
                      </select>
                  </div>
-                 </div>
+             </div>
+             
+             
+             <div class="form-group">
+                <label for="int" class='control-label col-md-3'><b>Pilihan Program Studi III <?php echo form_error('prodi_1') ?></b></label>
+                <div class='col-md-9'> 
+                    <select class="form-control" name="prodi_3">
+                        <?php foreach($data_prodi->result_array() as $data): ?>
+                           <option value="<?= $data['id_prodi'] ?>"><?= $data['nama_prodi'] ?></option>   
+                       <?php endforeach; ?>
+                   </select>
+               </div>
+           </div>
 
-                    <div class='form-actions'>
-                        <div class='row'>
-                            <div class='col-md-12'>
-                                <div class='row'>
-                                    <div class='col-md-offset-3 col-md-9'>
-                                     <button type="submit" class="btn btn-info"><i class='fa fa-check'></i><?php echo $button ?></button> 
-                                     <a href="<?php echo site_url('aplikan') ?>" class="btn btn-default"><i class='fa fa-share'></i>Cancel</a>  
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </form>
-         </div>
-     </div>
- </div>
+           <div class='form-actions'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <div class='row'>
+                        <div class='col-md-offset-3 col-md-9'>
+                           <button type="submit" class="btn btn-info"><i class='fa fa-check'></i><?php echo $button ?></button> 
+                           <a href="<?php echo site_url('aplikan') ?>" class="btn btn-default"><i class='fa fa-share'></i>Cancel</a>  
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </form>
+   <?php else:  ?>
+    <div class="alert alert-danger">Tidak ada tahun akademik yang aktif</div>
+<?php endif; ?>
+</div>
+</div>
+</div>
 </div>
 </div>

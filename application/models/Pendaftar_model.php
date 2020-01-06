@@ -49,6 +49,7 @@ class Pendaftar_model extends CI_model
 			a.pembayaran,
 			a.lulus,
 			a.program_pen,  
+			a.foto,
 
 			b.id_periode,b.tahun_akademik,b.tahun,b.semester,b.buka,b.mulai,b.selesai,
 

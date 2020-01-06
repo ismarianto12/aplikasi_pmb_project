@@ -26,7 +26,8 @@ class Periode_model extends CI_Model
           $this->datatables->where('id_periode',$nama_gelombang);
         } 
         //$this->datatables->join('table2', 'periode.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('periode/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('periode/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_periode');
+        $this->datatables->add_column('action', anchor(site_url('periode/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('periode/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='".base_url('periode/aktivasi/$1')."' class='btn btn-danger btn-xs delete'><i class='fa fa-calendar'></i> Buka tahun.</a>  
+            <a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_periode');
         return $this->datatables->generate();
     }
 

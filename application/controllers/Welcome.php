@@ -53,6 +53,7 @@ class Welcome extends CI_Controller {
     'prodi_2' => set_value('prodi_2'),
     'prodi_3' => set_value('prodi_3'),
     'pembayaran' => set_value('pembayaran'),
+    'tahun_akademik'=>'',
   );
    $this->template->load('template_depan','depan/daftar_pmb',$data); 
  }
