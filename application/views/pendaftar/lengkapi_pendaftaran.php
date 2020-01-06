@@ -10,7 +10,7 @@
         echo base_url('assets/img/'.$foto);   
         }else{
             echo base_url('assets/img/no_image.jpg'); 
-        }  ?>" class="img-responsive" style="width: 120px;height: 120px"> 
+        }  ?>" class="img-responsive" style="width: 120px;height: 120px" onError="this.onerror=null;this.src='<?= base_url('assets/img/no_image.jpg') ?>';"> 
         </center>
         <hr /> 
         <div class='panel-body'>
