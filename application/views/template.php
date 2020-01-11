@@ -99,7 +99,7 @@
             <div class="user-profile">
               <div class="dropdown user-pro-body">
                 <div class="profile-image">
-                  <img src="<?= base_url('assets/img/foto/'.$data['foto']) ?>" alt="user-img" class="img-circle" id="image_2" onerror="this.onerror=null;this.src='<?= base_url('assets/img/no_image.jpg') ?>';">
+                  <img src="<?= base_url('assets/img/').identitas("Logo") ?>" alt="user-img" class="img-circle" id="image_2" onerror="this.onerror=null;this.src='<?= base_url('assets/img/no_image.jpg') ?>';">
                   <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span class="badge badge-danger">
                       <i class="fa fa-angle-down"></i>
@@ -179,27 +179,7 @@
                                 <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
                                 <li><a href="javascript:void(0)" data-theme="black-dark" class="black-dark-theme">12</a></li>
                             </ul>
-                            <ul class="m-t-20 chatonline">
-                                <li><b>Chat option</b></li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../plugins/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                            </ul>
+                             
                         </div>
                     </div>
                 </div>

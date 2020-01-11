@@ -58,7 +58,7 @@
 
 <style type="text/css">
   #pesan_awal{
-    
+
     width: 100%;
     color: #fff;
   }
@@ -80,7 +80,7 @@
               <a class="navbar-toggle font-20 hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="fa fa-bars"></i>
               </a>
-              
+
               <div class="top-left-part">
 
               </div>
@@ -119,33 +119,28 @@
             <div class="user-profile">
               <div class="dropdown user-pro-body">
                 <div class="profile-image">
-                  <img src="" alt="user-img" class="img-circle" id="image_2" onerror="this.onerror=null;this.src='<?= base_url('assets/img/no_image.jpg') ?>';">
+                  <img src="<?= base_url('assets/img/').identitas("Logo") ?>" alt="user-img" onerror="this.onerror=null;this.src='<?= base_url('assets/img/no_image.jpg') ?>';">
                   <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span class="badge badge-danger">
                       <i class="fa fa-angle-down"></i>
                     </span>
-                  </a>
-
+                  </a> 
                 </div>
                 <p class="profile-text m-t-15 font-16"><a href="javascript:void(0);">SPMB</a></p>
               </div>
             </div>
             <nav class="sidebar-nav">  
              <?php require_once 'depan/menu_depan.php';  ?> 
-           </nav>
-
+           </nav>  
          </div>
-       </aside>
-       
-
-
+       </aside>   
        <!-- ===== Right-Sidebar ===== -->
        <div class="right-sidebar">
         <div class="slimscrollright">
           <div class="rpanel-title"> Service Panel <span><i class="icon-close right-side-toggler"></i></span> </div>
           <div class="r-panel-body">
             <ul class="hidden-xs">
-              <li><b>Layout Options</b></li>
+              <li><b>Setting lay out</b></li>
               <li>
                 <div class="checkbox checkbox-danger">
                   <input id="headcheck" type="checkbox" class="fxhdr">
@@ -208,7 +203,7 @@
         <div class="container-fluid" style="background: #fff"><?= $contents ?>
       </div>
       <!-- ===== Page-Container-End ===== -->
-      
+
     </div>
     <!-- ===== Page-Content-End ===== -->
   </div>

@@ -17,11 +17,16 @@ class Batas_bayar_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_batas,id_periode,program,tahun_mulai,batas_');
-        $this->datatables->from('batas_bayar');
+        $this->datatables->select('    a.id_batas,a.id_periode,a.program,a.tahun_mulai,a.batas_,
+            b.id_periode,b.tahun_akademik,b.tahun,b.semester,b.buka,b.mulai,b.selesai     
+            ');
+        $this->datatables->from('batas_bayar a');
+        $this->datatables->join('periode b','a.id_periode=b.id_periode','left');
         //add this line for join
         //$this->datatables->join('table2', 'batas_bayar.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('batas_bayar/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."  ".anchor(site_url('batas_bayar/edit/$1'),'<i class="fa fa-edit"></i> Update','class="btn btn-success btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_batas');
+        $this->datatables->add_column('action',"<a class='edit_data btn btn-info btn-xs' to='".site_url('batas_bayar/edit/$1')."'>Edit</a> 
+
+            <a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_batas');
         return $this->datatables->generate();
     }
 
