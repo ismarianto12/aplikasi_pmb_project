@@ -7,9 +7,9 @@
                 <div class='panel-body'>
                     <form action="<?php echo $action; ?>" method="post" class='form-horizontal form-bordered' enctype="multipart/form-data">
                         <div class='form-body'> 
-                           <?= $this->session->flashdata('message'); ?>
-                           <br /><br /><br /><br /> 
-                           <div class="form-group">
+                         <?= $this->session->flashdata('message'); ?>
+                         <br /><br /><br /><br /> 
+                         <div class="form-group">
                             <label for="varchar" class='control-label col-md-3'><b>Kode Hukum<?php echo form_error('KodeHukum') ?></b></label>
                             <div class='col-md-9'>
                                 <input type="text" class="form-control" name="KodeHukum" id="KodeHukum" placeholder="KodeHukum" value="<?php echo $KodeHukum; ?>" />
@@ -106,14 +106,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                     <img src=" 
-                        <?php if(file_exists('assets/img/'.$Logo)){
-                   echo base_url('assets/img/').$Logo;     
-                 }else{
-                   echo base_url('assets/img/no_image.jpg');
-                 } ?>" class="img-responsive" style="width:120px;height: 120px">  
-                            <label for="varchar" class='control-label col-md-3'><b>Logo<?php echo form_error('Logo') ?></b></label>
-                            <div class='col-md-9'>
+                            <center> 
+                           <img src=" 
+                           <?php if(file_exists('assets/img/'.$Logo)){
+                             echo base_url('assets/img/').$Logo;     
+                             }else{
+                                 echo base_url('assets/img/no_image.jpg');
+                             } ?>" class="img-responsive" style="width:120px;height: 100px">  
+                             </center>
+                             <label for="varchar" class='control-label col-md-3'><b>Logo<?php echo form_error('Logo') ?></b></label>
+                             <div class='col-md-9'>
                                 <input type="file" class="form-control" name="logo_kampus" id="Logo" placeholder="Logo" value="" />
                             </div>
                         </div>
@@ -149,18 +151,18 @@
                                 <div class='col-md-12'>
                                     <div class='row'>
                                         <div class='col-md-offset-3 col-md-9'>
-                                           <button type="submit" class="btn btn-info"><i class='fa fa-check'></i><?php echo $button ?></button> 
-                                           <a href="<?php echo site_url('identitas') ?>" class="btn btn-default"><i class='fa fa-share'></i>Cancel</a>
+                                         <button type="submit" class="btn btn-info"><i class='fa fa-check'></i><?php echo $button ?></button> 
+                                         <a href="<?php echo site_url('identitas') ?>" class="btn btn-default"><i class='fa fa-share'></i>Cancel</a>
 
 
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </form>
-               </div>
-           </div>
-       </div>
-   </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
 </div>

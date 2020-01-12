@@ -40,7 +40,12 @@
                 <th>Tgl Daftar</th>    
                 <th width="200px">Action</th>
             </tr>
-        </thead> 
+        </thead>
+        <tbody>
+        <tr>
+            <td valign="top" colspan="7" class="dataTables_empty"> Loading.. </td>
+        </tr>
+    </tbody> 
     </table>
     <script type="text/javascript">
         $(document).ready(function() {
