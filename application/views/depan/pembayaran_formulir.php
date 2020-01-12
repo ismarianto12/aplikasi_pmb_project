@@ -77,7 +77,11 @@
 					if(data.pesan == 'berhasil'){
 						swal('keterangan','harap bersabar data pembayaran anda sendang di verifikasi.','success');
 						//$('#formulir').hide();
-						$('#detail_formulir').html('<div class="alert alert-info">Nomor Pendaftaran anda sedang di verifikasi harap cek kembali pada cek pendaftaran </div>');
+						$('#no_pendaftaran').attr('disabled',true);
+						$('#file_pembayaran').attr('disabled',true);
+						$('#jumlah').attr('disabled',true); 
+						
+						$('#detail_formulir').html('<hr /><div class="alert alert-info">Nomor Pendaftaran anda sedang di verifikasi harap cek kembali pada cek pendaftaran </div>');
 					}else{
 						swal('keterangan',data.pesan,'error');
 						$('.panel-body').css('opacity',0);

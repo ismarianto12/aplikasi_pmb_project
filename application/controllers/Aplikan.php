@@ -136,6 +136,7 @@ function confirm(){
          'id_periode'=>$row->id_periode,
          'no_pendaftaran'=>$row->no_pendaftaran,
          'nama'=>$row->nama,
+         'password'=>md5(123),
          'kelamin'=>$row->kelamin,
          'tempatlahir'=>$row->tempatlahir,
          'alamat'=>$row->alamat,
@@ -160,10 +161,18 @@ function confirm(){
        ); 
         $this->db->insert('pmb',$data_pmb); 
         $this->db->update('aplikan',array('set_pmb'=>'Y'),array('no_pendaftaran'=>$this->input->post('no_pendaftaran')));
-      endif;   
+      /*email property*/
+     
+     $from = '';   
+     $to= $row->email; 
+     $subject='Informasi Persetujuan Formulir ';
+     $message='Selamat informasi pembelian formulir berhasil di verifikasi silahkan gunakan akes berikut untuk <br />Untuk login melengkapi informasi biodata PMB, Username :'.$row->no_pendaftaran.' Password : 123';   
+      /*end email properti*/        
+     send_email($from='',$to,$subject,$message); 
+     endif;   
     } 
   }elseif($this->input->post('konfirmasi') == 'N'){ 
-    
+    /*no action to add system*/  
   }  
 endif; 
 } 
@@ -194,5 +203,43 @@ public function hapus($id)
  }
 }
 
+
+
+/*send email to aplican*/
+private function send_email($from='',$to,$subject,$message){ 
+  $config = array(
+    'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
+    'smtp_host' => 'smtp.example.com', 
+    'smtp_port' => 465,
+    'smtp_user' => 'no-reply@example.com
+    ',
+    'smtp_pass' => '12345!',
+    'smtp_crypto' => 'ssl', //can be 'ssl' or 'tls' for example
+    'mailtype' => 'text', //plaintext 'text' mails or 'html'
+    'smtp_timeout' => '4', //in seconds
+    'charset' => 'iso-8859-1',
+    'wordwrap' => TRUE
+  );
+   
+    $this->load->library('email');
+    $from = $config['protocol'];
+    $to = $this->input->post('to');
+    $subject = $this->input->post('subject');
+    $message = $this->input->post('message');
+
+    $this->email->set_newline("\r\n");
+    $this->email->from($from);
+    $this->email->to($to);
+    $this->email->subject($subject);
+    $this->email->message($message);
+
+    // if ($this->email->send()) {
+    //   echo 'Your Email has successfully been sent.';
+    // } else {
+    //   show_error($this->email->print_debugger());
+    // }  
+}
+
+/*end function aadd from class*/
 }
 

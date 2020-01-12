@@ -17,8 +17,7 @@
     </div> 
    <div class="clearfix"></div>
    <br />
-    <div class="alert alert-danger">Data pmb tersedia , silahkan proses dulu pada halaman aplikan.</div>
-  
+    <div class="alert alert-danger">Data pmb tersedia , silahkan proses dulu pada halaman aplikan.</div> 
     <table class="table" id="datatables">
         <thead>
             <tr>
@@ -70,7 +69,7 @@
                     });
                 },
                 oLanguage: {
-                    sProcessing: "loading..."
+                   sProcessing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
                 },
                 processing: true,
                 serverSide: true,
@@ -91,7 +90,7 @@
                 {
                     "data": "id_pendaftar",
                     "orderable": false
-                },{"data": "id_periode"},{"data": "nomor_pmb"},{"data": "nama"},{"data": "kelamin"},{"data": "tempatlahir"},{"data": "alamat"},{"data": "kota"},{"data": "propinsi"},{"data": "kodePos"},{"data": "rt"},{"data": "rW"},{"data": "telepon"},{"data": "handphone"},{"data": "email"},{"data": "no_hp"},{"data": "tgl_daftar"},
+                },{"data": "tahun_akademik"},{"data": "no_pendaftaran"},{"data": "nama"},{"data": "kelamin"},{"data": "tempatlahir"},{"data": "alamat"},{"data": "kota"},{"data": "propinsi"},{"data": "kodePos"},{"data": "rt"},{"data": "rW"},{"data": "telepon"},{"data": "handphone"},{"data": "email"},{"data": "no_hp"},{"data": "tgl_daftar"},
                 {
                     "data" : "action",
                     "orderable": false,
