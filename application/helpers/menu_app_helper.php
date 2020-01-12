@@ -108,9 +108,14 @@ function penomoran_surat()
 }
 
 function catat_log($id_user,$url,$aktivitas,$ip_address,$browser){
-  $CI =& get_instance();
+  $CI =& get_instance(); 
+  if ($id_user =='') {
+     $session_id = $CI->session->id_user;
+  }else{ 
+     $session_id = $CI->session->id_user;
+  }
   $data =array(  
-    'id_user'=>$id_user,
+    'id_user'=>$session_id,
     'url'=>$url,
     'aktivitasi'=>$aktivitas, 
     'tanggal'=>date("y-m-d H:I:S"),

@@ -45,6 +45,9 @@
 					<div class='panel-heading'><?= ucfirst($judul) ?></div>
 					<div class='panel-wrapper collapse in' aria-expanded='true'>
 						<div class='panel-body'> 
+
+							<h3 class="box-title m-t-40">No Pendaftaran  <?= $data->no_pendaftaran ?></h3>
+							<hr />
 							<h3 class="box-title m-t-40">Data Pribadi</h3>
 							<hr />
 						 		<div class='form-body'> 

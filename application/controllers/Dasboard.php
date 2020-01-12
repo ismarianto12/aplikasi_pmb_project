@@ -25,30 +25,30 @@
     $this->template->load('template','dasboard/admin',$x); 
   }  
 
-function ganti_foto($action=''){
-  $foto =$this->db->get_where('login',array('id_user'=>$this->session->userdata('id_user')));
+  function ganti_foto($action=''){
+    $foto =$this->db->get_where('login',array('id_user'=>$this->session->userdata('id_user')));
 
-  if($action == 'save'){
+    if($action == 'save'){
 
-    $config['file_name'] ='foto'.time();
-    $config['upload_path'] ='assets/img/foto';
-    $config['allowed_types'] = 'jpg|png|png';
+      $config['file_name'] ='foto'.time();
+      $config['upload_path'] ='assets/img/foto';
+      $config['allowed_types'] = 'jpg|png|png';
 
-    $this->upload->initialize($config);
-    if($this->upload->do_upload('foto') == TRUE){
+      $this->upload->initialize($config);
+      if($this->upload->do_upload('foto') == TRUE){
 
-     $update = ['foto'=>$this->upload->file_name];
-     $this->db->update('login',$update,array('id_user'=>$this->session_id()));
-     @unlink('assets/img/foto/'.$foto->row()->foto);
+       $update = ['foto'=>$this->upload->file_name];
+       $this->db->update('login',$update,array('id_user'=>$this->session_id()));
+       @unlink('assets/img/foto/'.$foto->row()->foto);
 
-   }else{
-    echo $this->upload->display_errors('<div class="alert alert-danger">','</div>');
+     }else{
+      echo $this->upload->display_errors('<div class="alert alert-danger">','</div>');
+    } 
+  }else{
+    $x['judul'] = "edit foto profil";
+    $x['data'] = $this->db->get_where('login',array('id_user'=>$this->session_id()));
+    $this->template->load('template','dasboard/foto',$x);
   } 
-}else{
-  $x['judul'] = "edit foto profil";
-  $x['data'] = $this->db->get_where('login',array('id_user'=>$this->session_id()));
-  $this->template->load('template','dasboard/foto',$x);
-} 
 }
 
 

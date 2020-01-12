@@ -158,7 +158,6 @@ public function aktivasi()
      $this->session->set_flashdata('message', '<div class="alert alert-success fade-in"><i class="fa fa-check"></i>Hanya ada satu tahun yang aktif.</div>');
      redirect(site_url('periode'));
  endif;  
-
 }
 
 

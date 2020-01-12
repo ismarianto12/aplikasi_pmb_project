@@ -92,6 +92,30 @@ class Periode_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+
+    /**/
+    function tahun_akademik()
+    {
+      $this->db->select('
+        
+        a.id_periode,
+        a.tahun_akademik,
+        a.tahun,
+        a.semester,
+        a.buka,
+        a.mulai,
+        a.selesai,  
+
+        ');
+      $this->db->from('periode a');
+      $this->db->where('a.buka','Y');
+      $this->db->limit(1);
+      $data =  $this->db->get();
+
+      return $data; 
+
+    }
+ 
 }
 
  

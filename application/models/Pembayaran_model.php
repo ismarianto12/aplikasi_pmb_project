@@ -51,7 +51,9 @@ class Pembayaran_model extends CI_Model
            $this->datatables->where('a.id_periode',$this->input->post('periode'));
          }else{ 
          }
+
          $this->datatables->where('a.pembayaran','Y');
+         $this->datatables->add_column('file_konfirmasi','<a href="'.base_url('assets/file_pembayaran/$1').'" class="btn btn-success btn-xs">Baca file</a>','file_pembayaran');
          $this->datatables->add_column('action', anchor(site_url('pembayaran/detail/$1'),'<i class="fa fa-book"></i>Read','class="btn btn-info btn-xs edit"')."<a href='#' class='btn btn-danger btn-xs delete' onclick='javasciprt: return hapus($1)'><i class='fa fa-trash'></i> Delete</a>", 'id_bayar');
         return $this->datatables->generate();
     } 

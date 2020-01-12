@@ -2,7 +2,7 @@
      $(function(){
          $('#cancel').click(function(e){
             e.preventDefault();
-            $('#tampil_data').hide().slideUp('slow');
+            $('#tampil_data').slideUp('slow').hide();
          });
 
       $('#simpan').submit(function(e){

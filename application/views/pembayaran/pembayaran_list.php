@@ -4,8 +4,9 @@
       <div class='white-box'>
         <h3 class='box-title m-b-0'><?= $judul ?></h3>
         <p class='text-muted m-b-30'>Tabel Data <?= $judul ?></p>
+        <hr />
         <div class='table-responsive'>  
-         <div class="form-group">
+           <div class="form-group">
             <label for="int" class='control-label col-md-3'><b>Periode / Tahun Akademik</b></label>
             <div class='col-md-9'>
                 <select class="form-control" id="periode"> 
@@ -55,7 +56,7 @@
                     });
                 },
                 oLanguage: {
-                    sProcessing: "loading..."
+                    sProcessing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
                 },
                 processing: true,
                 serverSide: true,
@@ -68,7 +69,7 @@
             {
                 "data": "id_bayar",
                 "orderable": false
-            },{"data": "no_pend"},{"data": "jumlah"},{"data": "file_pembayaran"},{"data": "tanggal"},{"data": "nama"},
+            },{"data": "no_pend"},{"data": "jumlah"},{"data": "file_konfirmasi",'orderable':false},{"data": "tanggal"},{"data": "nama"},
             {
                 "data" : "action",
                 "orderable": false,
@@ -85,9 +86,9 @@
             }
         });
             $('#periode').change(function(){
-             datatable.draw();
-             datatable.ajax.reload(); 
-         });
+               datatable.draw();
+               datatable.ajax.reload(); 
+           });
 
         });
 
@@ -102,9 +103,9 @@
                 closeOnConfirm: false
             },
             function(){
-             swal('Hapus Data', 'Data Berhasil Di Hapus', 'success'); 
-             window.location.href='<?= base_url('pembayaran/hapus/') ?>'+n;
-         });
+               swal('Hapus Data', 'Data Berhasil Di Hapus', 'success'); 
+               window.location.href='<?= base_url('pembayaran/hapus/') ?>'+n;
+           });
         }
     </script>
 </div>

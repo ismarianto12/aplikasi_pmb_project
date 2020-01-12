@@ -5,6 +5,7 @@ class Welcome extends CI_Controller {
 
   function __construct(){
     parent::__construct();
+    $this->load->model('Periode_model');
     if($this->uri->segment(1) == 'welcome' OR $this->uri->segment(1) == 'Welcome'){
       $this->template->load('template_depan','Not_found',array('judul'=>'Halaman tidak ada.'));   
       exit();  
@@ -24,78 +25,88 @@ class Welcome extends CI_Controller {
     $this->template->load('template_depan','depan/home',$x);   
   } 
   function daftar(){ 
-   $data = array(
-    'judul'=>'Pendaftaran peserta SPMB.',
-    'button' => 'Daftar',
-    'data_prodi'=>$this->db->get('prodi'),
-    'action' => site_url('insert_data_peserta.aspx'), 
-    'id_periode' => set_value('id_periode'),
-    'nama' => set_value('nama'),
-    'kelamin' => set_value('kelamin'),
-    'tempatlahir' => set_value('tempatlahir'),
-    'alamat' => set_value('alamat'),
-    'kota' => set_value('kota'),
-    'propinsi' => set_value('propinsi'),
-    'kodePos' => set_value('kodePos'),
-    'rt' => set_value('rt'),
-    'rW' => set_value('rW'),
-    'telepon' => set_value('telepon'),
-    'handphone' => set_value('handphone'),
-    'email' => set_value('email'),
-    'no_hp' => set_value('no_hp'),
-    'jenisSekolah' => set_value('jenisSekolah'),
-    'namaSekolah' => set_value('namaSekolah'),
-    'jurusanSekolah' => set_value('jurusanSekolah'),
-    'tahunLulus' => set_value('tahunLulus'),
-    'nilaiSekolah' => set_value('nilaiSekolah'),
-    'tgl_daftar' => set_value('tgl_daftar'),
-    'prodi_1' => set_value('prodi_1'),
-    'prodi_2' => set_value('prodi_2'),
-    'prodi_3' => set_value('prodi_3'),
-    'pembayaran' => set_value('pembayaran'),
-    'tahun_akademik'=>'',
-  );
-   $this->template->load('template_depan','depan/daftar_pmb',$data); 
- }
- /*daftar action*/
+   $p_data =$this->Periode_model->tahun_akademik();
+   if ($p_data->num_rows() > 0) { 
+     $judul ='Pendaftaran peserta SPMB. Tahun Akademik '.$p_data->row()->tahun_akademik.'/'.$p_data->row()->semester;
+      $tahun_akademik = $p_data->row()->tahun_akademik;
+    }else{
+      $judul ='tidak ada tahun yang aktif';
+      $tahun_akademik = 'N';
+   } 
 
- function insert_data_peserta()
- { 
+
+ $data = array(
+  'judul'=>$judul,
+  'button' => 'Daftar',
+  'data_prodi'=>$this->db->get('prodi'),
+  'action' => site_url('insert_data_peserta.aspx'), 
+  'id_periode' => set_value('id_periode'),
+  'nama' => set_value('nama'),
+  'kelamin' => set_value('kelamin'),
+  'tempatlahir' => set_value('tempatlahir'),
+  'alamat' => set_value('alamat'),
+  'kota' => set_value('kota'),
+  'propinsi' => set_value('propinsi'),
+  'kodePos' => set_value('kodePos'),
+  'rt' => set_value('rt'),
+  'rW' => set_value('rW'),
+  'telepon' => set_value('telepon'),
+  'handphone' => set_value('handphone'),
+  'email' => set_value('email'),
+  'no_hp' => set_value('no_hp'),
+  'jenisSekolah' => set_value('jenisSekolah'),
+  'namaSekolah' => set_value('namaSekolah'),
+  'jurusanSekolah' => set_value('jurusanSekolah'),
+  'tahunLulus' => set_value('tahunLulus'),
+  'nilaiSekolah' => set_value('nilaiSekolah'),
+  'tgl_daftar' => set_value('tgl_daftar'),
+  'prodi_1' => set_value('prodi_1'),
+  'prodi_2' => set_value('prodi_2'),
+  'prodi_3' => set_value('prodi_3'),
+  'pembayaran' => set_value('pembayaran'),
+  'tahun_akademik'=>$p_data->row()->buka,
+);
+ $this->template->load('template_depan','depan/daftar_pmb',$data); 
+}
+/*daftar action*/
+
+function insert_data_peserta()
+{ 
   $this->_rules(); 
   if ($this->form_validation->run() == FALSE) {
    $this->daftar();
-  } else {
-    $id_periode = nama_gelombang('id_periode'); 
-    $nomor_pendaftaran = nomor_pendaftaran();
-    $data = array(
-      'id_periode'=>$id_periode,
-      'no_pendaftaran' => $nomor_pendaftaran,
-      'nama' => $this->input->post('nama',TRUE),
-      'kelamin' => $this->input->post('kelamin',TRUE),
-      'tempatlahir' => $this->input->post('tempatlahir',TRUE),
-      'alamat' => $this->input->post('alamat',TRUE),
-      'kota' => $this->input->post('kota',TRUE),
-      'propinsi' => $this->input->post('propinsi',TRUE),
-      'kodePos' => $this->input->post('kodePos',TRUE),
-      'rt' => $this->input->post('rt',TRUE),
-      'rW' => $this->input->post('rW',TRUE),
-      'telepon' => $this->input->post('telepon',TRUE), 
-      'email' => $this->input->post('email',TRUE),
-      'no_hp' => $this->input->post('no_hp',TRUE),
-      'jenisSekolah' => $this->input->post('jenisSekolah',TRUE),
-      'namaSekolah' => $this->input->post('namaSekolah',TRUE),
-      'jurusanSekolah' => $this->input->post('jurusanSekolah',TRUE),
-      'tahunLulus' => $this->input->post('tahunLulus',TRUE),
-      'nilaiSekolah' => $this->input->post('nilaiSekolah',TRUE),
-      'tgl_daftar' => date('Y-m-d'),
-      'prodi_1' => $this->input->post('prodi_1',TRUE),
-      'prodi_2' => $this->input->post('prodi_2',TRUE),
-      'prodi_3' => $this->input->post('prodi_3',TRUE), 
-    ); 
-    $this->db->insert('aplikan',$data);
-    $this->session->set_flashdata('message', '<div class="alert alert-success fade-in"><i class="fa fa-check"></i>Data Berhasil Di Tambahkan.</div>');
-    redirect(site_url('cetak_pendaftaran.aspx/'.$nomor_pendaftaran));
-  }   
+ } else {
+  $id_periode = nama_gelombang('id_periode'); 
+  $nomor_pendaftaran = nomor_pendaftaran();
+  $data = array(
+    'id_periode'=>$id_periode,
+    'no_pendaftaran' => $nomor_pendaftaran,
+    'nama' => $this->input->post('nama',TRUE),
+    'kelamin' => $this->input->post('kelamin',TRUE),
+    'tempatlahir' => $this->input->post('tempatlahir',TRUE),
+    'alamat' => $this->input->post('alamat',TRUE),
+    'kota' => $this->input->post('kota',TRUE),
+    'propinsi' => $this->input->post('propinsi',TRUE),
+    'kodePos' => $this->input->post('kodePos',TRUE),
+    'rt' => $this->input->post('rt',TRUE),
+    'rW' => $this->input->post('rW',TRUE),
+    'telepon' => $this->input->post('telepon',TRUE), 
+    'email' => $this->input->post('email',TRUE),
+    'no_hp' => $this->input->post('no_hp',TRUE),
+    'jenisSekolah' => $this->input->post('jenisSekolah',TRUE),
+    'namaSekolah' => $this->input->post('namaSekolah',TRUE),
+    'jurusanSekolah' => $this->input->post('jurusanSekolah',TRUE),
+    'tahunLulus' => $this->input->post('tahunLulus',TRUE),
+    'nilaiSekolah' => $this->input->post('nilaiSekolah',TRUE),
+    'tgl_daftar' => date('Y-m-d'),
+    'prodi_1' => $this->input->post('prodi_1',TRUE),
+    'prodi_2' => $this->input->post('prodi_2',TRUE),
+    'prodi_3' => $this->input->post('prodi_3',TRUE), 
+  ); 
+  $this->db->insert('aplikan',$data);
+  $this->session->set_flashdata('message', '<div class="alert alert-success fade-in"><i class="fa fa-check"></i>Data Berhasil Di Tambahkan.</div>');
+  redirect(site_url('cetak_pendaftaran.aspx/'.$nomor_pendaftaran));
+}   
 }
 
 /*end daftar funciton*/
@@ -127,29 +138,29 @@ function pembayaran_formulir_action()
    $cek = $this->db->get_where('aplikan',array('no_pendaftaran'=>$no_pendaftaran)); 
    if($cek->num_rows() > 0): 
 
-   $conf['file_name'] = ' pembayaran_'.time();
-   $conf['allowed_types'] = 'pdf|png|jpg';
-   $conf['upload_path'] = 'assets/file_pembayaran';
-   $this->upload->initialize($conf);
-   if($this->upload->do_upload('file_pembayaran'))
-   { 
-     $data = array ( 
-      'no_pendaftaran'=>$this->input->post('no_pendaftaran'),
-      'jumlah'=>$this->input->post('jumlah'),
-      'file_pembayaran'=>$this->upload->file_name,
-      'tanggal'=>date("Y-m-d"),
-    ); 
-     $this->db->insert('Pembayaran',$data);
-     $pesan = array ('pesan'=>'berhasil');
-     echo json_encode($pesan);
-   }else{
-    $pesan = array ('pesan'=>'maaf file yang izinkan cuma pdf dan jpg');
+     $conf['file_name'] = ' pembayaran_'.time();
+     $conf['allowed_types'] = 'pdf|png|jpg';
+     $conf['upload_path'] = 'assets/file_pembayaran';
+     $this->upload->initialize($conf);
+     if($this->upload->do_upload('file_pembayaran'))
+     { 
+       $data = array ( 
+        'no_pendaftaran'=>$this->input->post('no_pendaftaran'),
+        'jumlah'=>$this->input->post('jumlah'),
+        'file_pembayaran'=>$this->upload->file_name,
+        'tanggal'=>date("Y-m-d"),
+      ); 
+       $this->db->insert('Pembayaran',$data);
+       $pesan = array ('pesan'=>'berhasil');
+       echo json_encode($pesan);
+     }else{
+      $pesan = array ('pesan'=>'maaf file yang izinkan cuma pdf dan jpg');
+      echo json_encode($pesan);
+    } 
+  else:
+    $pesan = array ('pesan'=>'No Pendaftaran Formulir tidak di temukan.');
     echo json_encode($pesan);
-  } 
-else:
-  $pesan = array ('pesan'=>'No Pendaftaran Formulir tidak di temukan.');
-  echo json_encode($pesan);
-endif;
+  endif;
 } 
 }
 
@@ -163,16 +174,18 @@ function cek_pendaftaran()
 function cek_data_pendaftaran()
 {
   if($_SERVER['REQUEST_METHOD'] == "POST"):
-    $no_pendaftaran = $this->input->post('no_pendaftaran');
-    $data = $this->Depan_model->cek_data_pendaftaran($no_pendaftaran)->row_array();
+    $no_pendaftaran = $this->input->post('id_pendaftaran');
+    $data = $this->Depan_model->cek_data_pendaftaran($no_pendaftaran)->row_array(); 
     if($data['pembayaran'] == 'Y'):
-      $this->load->view('detail_data_pendaftaran',$x); 
-     elseif($data['pembayaran'] == 'N'):
-       echo "<div class='alert alert-warning'>Data Formulir anda sedang di proses.</div>";
-    else:
-      echo "<div class='alert alert-danger'>Maaf nomor formulir tidak di temukan </div>";
-    endif;   
-  endif;
+      $s_sql = $this->Depan_model->cek_data_pendaftaran($no_pendaftaran);
+      $sql =array('sql'=>$s_sql);
+      $this->load->view('detail_data_pendaftaran',$sql); 
+    elseif($data['pembayaran'] == 'N'):
+     echo "<div class='alert alert-warning'>Data Formulir anda sedang di proses.</div>";
+   else:
+    echo "<div class='alert alert-danger'>Maaf nomor formulir tidak di temukan atau belum di konfirmasi harap bersabar.</div>";
+  endif;   
+endif;
 }
 
 /*login access*/
@@ -209,9 +222,9 @@ function login(){
   ];
   $this->session->set_userdata($session);
   echo "y";   
-  }else{
-   echo "n";
- }
+}else{
+ echo "n";
+}
 }
 }
 

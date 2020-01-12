@@ -17,7 +17,17 @@ class Login_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id_user,username,password,nama,email,foto,level,active,date_create,log');
+        $this->datatables->select('
+            id_user
+            username
+            password
+            nama
+            email
+            foto
+            level
+            active
+            date_create
+            log');
         $this->datatables->from('login');
         //add this line for join
         //$this->datatables->join('table2', 'login.field = table2.field');
